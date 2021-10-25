@@ -1,0 +1,6898 @@
+schema {
+  query: query_root
+  mutation: mutation_root
+  subscription: subscription_root
+}
+
+"""whether this query should be cached (Hasura Cloud only)"""
+directive @cached(
+  """measured in seconds"""
+  ttl: Int! = 60
+
+  """refresh the cache entry"""
+  refresh: Boolean! = false
+) on QUERY
+
+"""
+Boolean expression to compare columns of type "Boolean". All fields are combined with logical 'AND'.
+"""
+input Boolean_comparison_exp {
+  _eq: Boolean
+  _gt: Boolean
+  _gte: Boolean
+  _in: [Boolean!]
+  _is_null: Boolean
+  _lt: Boolean
+  _lte: Boolean
+  _neq: Boolean
+  _nin: [Boolean!]
+}
+
+"""
+Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'.
+"""
+input Int_comparison_exp {
+  _eq: Int
+  _gt: Int
+  _gte: Int
+  _in: [Int!]
+  _is_null: Boolean
+  _lt: Int
+  _lte: Int
+  _neq: Int
+  _nin: [Int!]
+}
+
+"""
+Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'.
+"""
+input String_comparison_exp {
+  _eq: String
+  _gt: String
+  _gte: String
+
+  """does the column match the given case-insensitive pattern"""
+  _ilike: String
+  _in: [String!]
+
+  """
+  does the column match the given POSIX regular expression, case insensitive
+  """
+  _iregex: String
+  _is_null: Boolean
+
+  """does the column match the given pattern"""
+  _like: String
+  _lt: String
+  _lte: String
+  _neq: String
+
+  """does the column NOT match the given case-insensitive pattern"""
+  _nilike: String
+  _nin: [String!]
+
+  """
+  does the column NOT match the given POSIX regular expression, case insensitive
+  """
+  _niregex: String
+
+  """does the column NOT match the given pattern"""
+  _nlike: String
+
+  """
+  does the column NOT match the given POSIX regular expression, case sensitive
+  """
+  _nregex: String
+
+  """does the column NOT match the given SQL regular expression"""
+  _nsimilar: String
+
+  """
+  does the column match the given POSIX regular expression, case sensitive
+  """
+  _regex: String
+
+  """does the column match the given SQL regular expression"""
+  _similar: String
+}
+
+"""
+columns and relationships of "attachment_extensions"
+"""
+type attachment_extensions {
+  """An array relationship"""
+  attachments(
+    """distinct select on columns"""
+    distinct_on: [attachments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachments_order_by!]
+
+    """filter the rows returned"""
+    where: attachments_bool_exp
+  ): [attachments!]!
+
+  """An aggregate relationship"""
+  attachments_aggregate(
+    """distinct select on columns"""
+    distinct_on: [attachments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachments_order_by!]
+
+    """filter the rows returned"""
+    where: attachments_bool_exp
+  ): attachments_aggregate!
+  comment: String!
+  name: String!
+}
+
+"""
+aggregated selection of "attachment_extensions"
+"""
+type attachment_extensions_aggregate {
+  aggregate: attachment_extensions_aggregate_fields
+  nodes: [attachment_extensions!]!
+}
+
+"""
+aggregate fields of "attachment_extensions"
+"""
+type attachment_extensions_aggregate_fields {
+  count(columns: [attachment_extensions_select_column!], distinct: Boolean): Int!
+  max: attachment_extensions_max_fields
+  min: attachment_extensions_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "attachment_extensions". All fields are combined with a logical 'AND'.
+"""
+input attachment_extensions_bool_exp {
+  _and: [attachment_extensions_bool_exp!]
+  _not: attachment_extensions_bool_exp
+  _or: [attachment_extensions_bool_exp!]
+  attachments: attachments_bool_exp
+  comment: String_comparison_exp
+  name: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "attachment_extensions"
+"""
+enum attachment_extensions_constraint {
+  """unique or primary key constraint"""
+  attachment_extensions_pkey
+}
+
+enum attachment_extensions_enum {
+  """"""
+  doc
+
+  """"""
+  docx
+
+  """"""
+  jpeg
+
+  """"""
+  jpg
+
+  """"""
+  pdf
+
+  """"""
+  png
+
+  """"""
+  unknown
+}
+
+"""
+Boolean expression to compare columns of type "attachment_extensions_enum". All fields are combined with logical 'AND'.
+"""
+input attachment_extensions_enum_comparison_exp {
+  _eq: attachment_extensions_enum
+  _in: [attachment_extensions_enum!]
+  _is_null: Boolean
+  _neq: attachment_extensions_enum
+  _nin: [attachment_extensions_enum!]
+}
+
+"""
+input type for inserting data into table "attachment_extensions"
+"""
+input attachment_extensions_insert_input {
+  attachments: attachments_arr_rel_insert_input
+  comment: String
+  name: String
+}
+
+"""aggregate max on columns"""
+type attachment_extensions_max_fields {
+  comment: String
+  name: String
+}
+
+"""aggregate min on columns"""
+type attachment_extensions_min_fields {
+  comment: String
+  name: String
+}
+
+"""
+response of any mutation on the table "attachment_extensions"
+"""
+type attachment_extensions_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [attachment_extensions!]!
+}
+
+"""
+input type for inserting object relation for remote table "attachment_extensions"
+"""
+input attachment_extensions_obj_rel_insert_input {
+  data: attachment_extensions_insert_input!
+
+  """on conflict condition"""
+  on_conflict: attachment_extensions_on_conflict
+}
+
+"""
+on conflict condition type for table "attachment_extensions"
+"""
+input attachment_extensions_on_conflict {
+  constraint: attachment_extensions_constraint!
+  update_columns: [attachment_extensions_update_column!]! = []
+  where: attachment_extensions_bool_exp
+}
+
+"""Ordering options when selecting data from "attachment_extensions"."""
+input attachment_extensions_order_by {
+  attachments_aggregate: attachments_aggregate_order_by
+  comment: order_by
+  name: order_by
+}
+
+"""primary key columns input for table: attachment_extensions"""
+input attachment_extensions_pk_columns_input {
+  name: String!
+}
+
+"""
+select columns of table "attachment_extensions"
+"""
+enum attachment_extensions_select_column {
+  """column name"""
+  comment
+
+  """column name"""
+  name
+}
+
+"""
+input type for updating data in table "attachment_extensions"
+"""
+input attachment_extensions_set_input {
+  comment: String
+  name: String
+}
+
+"""
+update columns of table "attachment_extensions"
+"""
+enum attachment_extensions_update_column {
+  """column name"""
+  comment
+
+  """column name"""
+  name
+}
+
+"""
+columns and relationships of "attachments"
+"""
+type attachments {
+  """An object relationship"""
+  attachment_extension: attachment_extensions!
+  created_at: timestamptz!
+  deleted_at: time
+  extension: attachment_extensions_enum!
+  id: uuid!
+  message_id: uuid
+  path: String!
+
+  """An object relationship"""
+  ticket: tickets!
+  ticket_id: uuid!
+
+  """An object relationship"""
+  ticket_message: ticket_messages
+  title: String!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "attachments"
+"""
+type attachments_aggregate {
+  aggregate: attachments_aggregate_fields
+  nodes: [attachments!]!
+}
+
+"""
+aggregate fields of "attachments"
+"""
+type attachments_aggregate_fields {
+  count(columns: [attachments_select_column!], distinct: Boolean): Int!
+  max: attachments_max_fields
+  min: attachments_min_fields
+}
+
+"""
+order by aggregate values of table "attachments"
+"""
+input attachments_aggregate_order_by {
+  count: order_by
+  max: attachments_max_order_by
+  min: attachments_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "attachments"
+"""
+input attachments_arr_rel_insert_input {
+  data: [attachments_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: attachments_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "attachments". All fields are combined with a logical 'AND'.
+"""
+input attachments_bool_exp {
+  _and: [attachments_bool_exp!]
+  _not: attachments_bool_exp
+  _or: [attachments_bool_exp!]
+  attachment_extension: attachment_extensions_bool_exp
+  created_at: timestamptz_comparison_exp
+  deleted_at: time_comparison_exp
+  extension: attachment_extensions_enum_comparison_exp
+  id: uuid_comparison_exp
+  message_id: uuid_comparison_exp
+  path: String_comparison_exp
+  ticket: tickets_bool_exp
+  ticket_id: uuid_comparison_exp
+  ticket_message: ticket_messages_bool_exp
+  title: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "attachments"
+"""
+enum attachments_constraint {
+  """unique or primary key constraint"""
+  attachments_pkey
+}
+
+"""
+input type for inserting data into table "attachments"
+"""
+input attachments_insert_input {
+  attachment_extension: attachment_extensions_obj_rel_insert_input
+  created_at: timestamptz
+  deleted_at: time
+  extension: attachment_extensions_enum
+  id: uuid
+  message_id: uuid
+  path: String
+  ticket: tickets_obj_rel_insert_input
+  ticket_id: uuid
+  ticket_message: ticket_messages_obj_rel_insert_input
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type attachments_max_fields {
+  created_at: timestamptz
+  id: uuid
+  message_id: uuid
+  path: String
+  ticket_id: uuid
+  title: String
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "attachments"
+"""
+input attachments_max_order_by {
+  created_at: order_by
+  id: order_by
+  message_id: order_by
+  path: order_by
+  ticket_id: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type attachments_min_fields {
+  created_at: timestamptz
+  id: uuid
+  message_id: uuid
+  path: String
+  ticket_id: uuid
+  title: String
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "attachments"
+"""
+input attachments_min_order_by {
+  created_at: order_by
+  id: order_by
+  message_id: order_by
+  path: order_by
+  ticket_id: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "attachments"
+"""
+type attachments_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [attachments!]!
+}
+
+"""
+on conflict condition type for table "attachments"
+"""
+input attachments_on_conflict {
+  constraint: attachments_constraint!
+  update_columns: [attachments_update_column!]! = []
+  where: attachments_bool_exp
+}
+
+"""Ordering options when selecting data from "attachments"."""
+input attachments_order_by {
+  attachment_extension: attachment_extensions_order_by
+  created_at: order_by
+  deleted_at: order_by
+  extension: order_by
+  id: order_by
+  message_id: order_by
+  path: order_by
+  ticket: tickets_order_by
+  ticket_id: order_by
+  ticket_message: ticket_messages_order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: attachments"""
+input attachments_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "attachments"
+"""
+enum attachments_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  deleted_at
+
+  """column name"""
+  extension
+
+  """column name"""
+  id
+
+  """column name"""
+  message_id
+
+  """column name"""
+  path
+
+  """column name"""
+  ticket_id
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "attachments"
+"""
+input attachments_set_input {
+  created_at: timestamptz
+  deleted_at: time
+  extension: attachment_extensions_enum
+  id: uuid
+  message_id: uuid
+  path: String
+  ticket_id: uuid
+  title: String
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "attachments"
+"""
+enum attachments_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  deleted_at
+
+  """column name"""
+  extension
+
+  """column name"""
+  id
+
+  """column name"""
+  message_id
+
+  """column name"""
+  path
+
+  """column name"""
+  ticket_id
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+"""
+columns and relationships of "is_participant_online"
+"""
+type is_participant_online {
+  description: String
+  is_online: String!
+
+  """An array relationship"""
+  participants(
+    """distinct select on columns"""
+    distinct_on: [participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participants_order_by!]
+
+    """filter the rows returned"""
+    where: participants_bool_exp
+  ): [participants!]!
+
+  """An aggregate relationship"""
+  participants_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participants_order_by!]
+
+    """filter the rows returned"""
+    where: participants_bool_exp
+  ): participants_aggregate!
+}
+
+"""
+aggregated selection of "is_participant_online"
+"""
+type is_participant_online_aggregate {
+  aggregate: is_participant_online_aggregate_fields
+  nodes: [is_participant_online!]!
+}
+
+"""
+aggregate fields of "is_participant_online"
+"""
+type is_participant_online_aggregate_fields {
+  count(columns: [is_participant_online_select_column!], distinct: Boolean): Int!
+  max: is_participant_online_max_fields
+  min: is_participant_online_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "is_participant_online". All fields are combined with a logical 'AND'.
+"""
+input is_participant_online_bool_exp {
+  _and: [is_participant_online_bool_exp!]
+  _not: is_participant_online_bool_exp
+  _or: [is_participant_online_bool_exp!]
+  description: String_comparison_exp
+  is_online: String_comparison_exp
+  participants: participants_bool_exp
+}
+
+"""
+unique or primary key constraints on table "is_participant_online"
+"""
+enum is_participant_online_constraint {
+  """unique or primary key constraint"""
+  is_participant_online_pkey
+}
+
+"""
+input type for inserting data into table "is_participant_online"
+"""
+input is_participant_online_insert_input {
+  description: String
+  is_online: String
+  participants: participants_arr_rel_insert_input
+}
+
+"""aggregate max on columns"""
+type is_participant_online_max_fields {
+  description: String
+  is_online: String
+}
+
+"""aggregate min on columns"""
+type is_participant_online_min_fields {
+  description: String
+  is_online: String
+}
+
+"""
+response of any mutation on the table "is_participant_online"
+"""
+type is_participant_online_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [is_participant_online!]!
+}
+
+"""
+input type for inserting object relation for remote table "is_participant_online"
+"""
+input is_participant_online_obj_rel_insert_input {
+  data: is_participant_online_insert_input!
+
+  """on conflict condition"""
+  on_conflict: is_participant_online_on_conflict
+}
+
+"""
+on conflict condition type for table "is_participant_online"
+"""
+input is_participant_online_on_conflict {
+  constraint: is_participant_online_constraint!
+  update_columns: [is_participant_online_update_column!]! = []
+  where: is_participant_online_bool_exp
+}
+
+"""Ordering options when selecting data from "is_participant_online"."""
+input is_participant_online_order_by {
+  description: order_by
+  is_online: order_by
+  participants_aggregate: participants_aggregate_order_by
+}
+
+"""primary key columns input for table: is_participant_online"""
+input is_participant_online_pk_columns_input {
+  is_online: String!
+}
+
+"""
+select columns of table "is_participant_online"
+"""
+enum is_participant_online_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  is_online
+}
+
+"""
+input type for updating data in table "is_participant_online"
+"""
+input is_participant_online_set_input {
+  description: String
+  is_online: String
+}
+
+"""
+update columns of table "is_participant_online"
+"""
+enum is_participant_online_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  is_online
+}
+
+"""
+columns and relationships of "messages"
+"""
+type messages {
+  created_at: timestamptz!
+  id: Int!
+  message: String!
+  participant_id: Int!
+  participant_name: String!
+
+  """An array relationship"""
+  participant_rooms(
+    """distinct select on columns"""
+    distinct_on: [participant_room_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_room_order_by!]
+
+    """filter the rows returned"""
+    where: participant_room_bool_exp
+  ): [participant_room!]!
+
+  """An aggregate relationship"""
+  participant_rooms_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participant_room_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_room_order_by!]
+
+    """filter the rows returned"""
+    where: participant_room_bool_exp
+  ): participant_room_aggregate!
+
+  """An object relationship"""
+  room: rooms!
+  room_id: Int!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "messages"
+"""
+type messages_aggregate {
+  aggregate: messages_aggregate_fields
+  nodes: [messages!]!
+}
+
+"""
+aggregate fields of "messages"
+"""
+type messages_aggregate_fields {
+  avg: messages_avg_fields
+  count(columns: [messages_select_column!], distinct: Boolean): Int!
+  max: messages_max_fields
+  min: messages_min_fields
+  stddev: messages_stddev_fields
+  stddev_pop: messages_stddev_pop_fields
+  stddev_samp: messages_stddev_samp_fields
+  sum: messages_sum_fields
+  var_pop: messages_var_pop_fields
+  var_samp: messages_var_samp_fields
+  variance: messages_variance_fields
+}
+
+"""
+order by aggregate values of table "messages"
+"""
+input messages_aggregate_order_by {
+  avg: messages_avg_order_by
+  count: order_by
+  max: messages_max_order_by
+  min: messages_min_order_by
+  stddev: messages_stddev_order_by
+  stddev_pop: messages_stddev_pop_order_by
+  stddev_samp: messages_stddev_samp_order_by
+  sum: messages_sum_order_by
+  var_pop: messages_var_pop_order_by
+  var_samp: messages_var_samp_order_by
+  variance: messages_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "messages"
+"""
+input messages_arr_rel_insert_input {
+  data: [messages_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: messages_on_conflict
+}
+
+"""aggregate avg on columns"""
+type messages_avg_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+}
+
+"""
+order by avg() on columns of table "messages"
+"""
+input messages_avg_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "messages". All fields are combined with a logical 'AND'.
+"""
+input messages_bool_exp {
+  _and: [messages_bool_exp!]
+  _not: messages_bool_exp
+  _or: [messages_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  id: Int_comparison_exp
+  message: String_comparison_exp
+  participant_id: Int_comparison_exp
+  participant_name: String_comparison_exp
+  participant_rooms: participant_room_bool_exp
+  room: rooms_bool_exp
+  room_id: Int_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "messages"
+"""
+enum messages_constraint {
+  """unique or primary key constraint"""
+  messages_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "messages"
+"""
+input messages_inc_input {
+  id: Int
+  participant_id: Int
+  room_id: Int
+}
+
+"""
+input type for inserting data into table "messages"
+"""
+input messages_insert_input {
+  created_at: timestamptz
+  id: Int
+  message: String
+  participant_id: Int
+  participant_name: String
+  participant_rooms: participant_room_arr_rel_insert_input
+  room: rooms_obj_rel_insert_input
+  room_id: Int
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type messages_max_fields {
+  created_at: timestamptz
+  id: Int
+  message: String
+  participant_id: Int
+  participant_name: String
+  room_id: Int
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "messages"
+"""
+input messages_max_order_by {
+  created_at: order_by
+  id: order_by
+  message: order_by
+  participant_id: order_by
+  participant_name: order_by
+  room_id: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type messages_min_fields {
+  created_at: timestamptz
+  id: Int
+  message: String
+  participant_id: Int
+  participant_name: String
+  room_id: Int
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "messages"
+"""
+input messages_min_order_by {
+  created_at: order_by
+  id: order_by
+  message: order_by
+  participant_id: order_by
+  participant_name: order_by
+  room_id: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "messages"
+"""
+type messages_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [messages!]!
+}
+
+"""
+input type for inserting object relation for remote table "messages"
+"""
+input messages_obj_rel_insert_input {
+  data: messages_insert_input!
+
+  """on conflict condition"""
+  on_conflict: messages_on_conflict
+}
+
+"""
+on conflict condition type for table "messages"
+"""
+input messages_on_conflict {
+  constraint: messages_constraint!
+  update_columns: [messages_update_column!]! = []
+  where: messages_bool_exp
+}
+
+"""Ordering options when selecting data from "messages"."""
+input messages_order_by {
+  created_at: order_by
+  id: order_by
+  message: order_by
+  participant_id: order_by
+  participant_name: order_by
+  participant_rooms_aggregate: participant_room_aggregate_order_by
+  room: rooms_order_by
+  room_id: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: messages"""
+input messages_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "messages"
+"""
+enum messages_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  message
+
+  """column name"""
+  participant_id
+
+  """column name"""
+  participant_name
+
+  """column name"""
+  room_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "messages"
+"""
+input messages_set_input {
+  created_at: timestamptz
+  id: Int
+  message: String
+  participant_id: Int
+  participant_name: String
+  room_id: Int
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type messages_stddev_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+}
+
+"""
+order by stddev() on columns of table "messages"
+"""
+input messages_stddev_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type messages_stddev_pop_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "messages"
+"""
+input messages_stddev_pop_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type messages_stddev_samp_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "messages"
+"""
+input messages_stddev_samp_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+}
+
+"""aggregate sum on columns"""
+type messages_sum_fields {
+  id: Int
+  participant_id: Int
+  room_id: Int
+}
+
+"""
+order by sum() on columns of table "messages"
+"""
+input messages_sum_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+}
+
+"""
+update columns of table "messages"
+"""
+enum messages_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  message
+
+  """column name"""
+  participant_id
+
+  """column name"""
+  participant_name
+
+  """column name"""
+  room_id
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type messages_var_pop_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+}
+
+"""
+order by var_pop() on columns of table "messages"
+"""
+input messages_var_pop_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type messages_var_samp_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+}
+
+"""
+order by var_samp() on columns of table "messages"
+"""
+input messages_var_samp_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+}
+
+"""aggregate variance on columns"""
+type messages_variance_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+}
+
+"""
+order by variance() on columns of table "messages"
+"""
+input messages_variance_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+}
+
+"""mutation root"""
+type mutation_root {
+  """
+  delete data from the table: "attachment_extensions"
+  """
+  delete_attachment_extensions(
+    """filter the rows which have to be deleted"""
+    where: attachment_extensions_bool_exp!
+  ): attachment_extensions_mutation_response
+
+  """
+  delete single row from the table: "attachment_extensions"
+  """
+  delete_attachment_extensions_by_pk(name: String!): attachment_extensions
+
+  """
+  delete data from the table: "attachments"
+  """
+  delete_attachments(
+    """filter the rows which have to be deleted"""
+    where: attachments_bool_exp!
+  ): attachments_mutation_response
+
+  """
+  delete single row from the table: "attachments"
+  """
+  delete_attachments_by_pk(id: uuid!): attachments
+
+  """
+  delete data from the table: "is_participant_online"
+  """
+  delete_is_participant_online(
+    """filter the rows which have to be deleted"""
+    where: is_participant_online_bool_exp!
+  ): is_participant_online_mutation_response
+
+  """
+  delete single row from the table: "is_participant_online"
+  """
+  delete_is_participant_online_by_pk(is_online: String!): is_participant_online
+
+  """
+  delete data from the table: "messages"
+  """
+  delete_messages(
+    """filter the rows which have to be deleted"""
+    where: messages_bool_exp!
+  ): messages_mutation_response
+
+  """
+  delete single row from the table: "messages"
+  """
+  delete_messages_by_pk(id: Int!): messages
+
+  """
+  delete data from the table: "participant_room"
+  """
+  delete_participant_room(
+    """filter the rows which have to be deleted"""
+    where: participant_room_bool_exp!
+  ): participant_room_mutation_response
+
+  """
+  delete single row from the table: "participant_room"
+  """
+  delete_participant_room_by_pk(id: Int!): participant_room
+
+  """
+  delete data from the table: "participant_type"
+  """
+  delete_participant_type(
+    """filter the rows which have to be deleted"""
+    where: participant_type_bool_exp!
+  ): participant_type_mutation_response
+
+  """
+  delete single row from the table: "participant_type"
+  """
+  delete_participant_type_by_pk(type: String!): participant_type
+
+  """
+  delete data from the table: "participants"
+  """
+  delete_participants(
+    """filter the rows which have to be deleted"""
+    where: participants_bool_exp!
+  ): participants_mutation_response
+
+  """
+  delete single row from the table: "participants"
+  """
+  delete_participants_by_pk(id: Int!): participants
+
+  """
+  delete data from the table: "room_status"
+  """
+  delete_room_status(
+    """filter the rows which have to be deleted"""
+    where: room_status_bool_exp!
+  ): room_status_mutation_response
+
+  """
+  delete single row from the table: "room_status"
+  """
+  delete_room_status_by_pk(status: String!): room_status
+
+  """
+  delete data from the table: "room_type"
+  """
+  delete_room_type(
+    """filter the rows which have to be deleted"""
+    where: room_type_bool_exp!
+  ): room_type_mutation_response
+
+  """
+  delete single row from the table: "room_type"
+  """
+  delete_room_type_by_pk(type: String!): room_type
+
+  """
+  delete data from the table: "room_visibility"
+  """
+  delete_room_visibility(
+    """filter the rows which have to be deleted"""
+    where: room_visibility_bool_exp!
+  ): room_visibility_mutation_response
+
+  """
+  delete single row from the table: "room_visibility"
+  """
+  delete_room_visibility_by_pk(visibility: String!): room_visibility
+
+  """
+  delete data from the table: "rooms"
+  """
+  delete_rooms(
+    """filter the rows which have to be deleted"""
+    where: rooms_bool_exp!
+  ): rooms_mutation_response
+
+  """
+  delete single row from the table: "rooms"
+  """
+  delete_rooms_by_pk(id: Int!): rooms
+
+  """
+  delete data from the table: "ticket_messages"
+  """
+  delete_ticket_messages(
+    """filter the rows which have to be deleted"""
+    where: ticket_messages_bool_exp!
+  ): ticket_messages_mutation_response
+
+  """
+  delete single row from the table: "ticket_messages"
+  """
+  delete_ticket_messages_by_pk(id: uuid!): ticket_messages
+
+  """
+  delete data from the table: "ticket_participants"
+  """
+  delete_ticket_participants(
+    """filter the rows which have to be deleted"""
+    where: ticket_participants_bool_exp!
+  ): ticket_participants_mutation_response
+
+  """
+  delete single row from the table: "ticket_participants"
+  """
+  delete_ticket_participants_by_pk(participant_id: uuid!, ticket_id: uuid!): ticket_participants
+
+  """
+  delete data from the table: "ticket_states"
+  """
+  delete_ticket_states(
+    """filter the rows which have to be deleted"""
+    where: ticket_states_bool_exp!
+  ): ticket_states_mutation_response
+
+  """
+  delete single row from the table: "ticket_states"
+  """
+  delete_ticket_states_by_pk(name: String!): ticket_states
+
+  """
+  delete data from the table: "tickets"
+  """
+  delete_tickets(
+    """filter the rows which have to be deleted"""
+    where: tickets_bool_exp!
+  ): tickets_mutation_response
+
+  """
+  delete single row from the table: "tickets"
+  """
+  delete_tickets_by_pk(id: uuid!): tickets
+
+  """
+  delete data from the table: "users"
+  """
+  delete_users(
+    """filter the rows which have to be deleted"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  delete single row from the table: "users"
+  """
+  delete_users_by_pk(id: uuid!): users
+
+  """
+  insert data into the table: "attachment_extensions"
+  """
+  insert_attachment_extensions(
+    """the rows to be inserted"""
+    objects: [attachment_extensions_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: attachment_extensions_on_conflict
+  ): attachment_extensions_mutation_response
+
+  """
+  insert a single row into the table: "attachment_extensions"
+  """
+  insert_attachment_extensions_one(
+    """the row to be inserted"""
+    object: attachment_extensions_insert_input!
+
+    """on conflict condition"""
+    on_conflict: attachment_extensions_on_conflict
+  ): attachment_extensions
+
+  """
+  insert data into the table: "attachments"
+  """
+  insert_attachments(
+    """the rows to be inserted"""
+    objects: [attachments_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: attachments_on_conflict
+  ): attachments_mutation_response
+
+  """
+  insert a single row into the table: "attachments"
+  """
+  insert_attachments_one(
+    """the row to be inserted"""
+    object: attachments_insert_input!
+
+    """on conflict condition"""
+    on_conflict: attachments_on_conflict
+  ): attachments
+
+  """
+  insert data into the table: "is_participant_online"
+  """
+  insert_is_participant_online(
+    """the rows to be inserted"""
+    objects: [is_participant_online_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: is_participant_online_on_conflict
+  ): is_participant_online_mutation_response
+
+  """
+  insert a single row into the table: "is_participant_online"
+  """
+  insert_is_participant_online_one(
+    """the row to be inserted"""
+    object: is_participant_online_insert_input!
+
+    """on conflict condition"""
+    on_conflict: is_participant_online_on_conflict
+  ): is_participant_online
+
+  """
+  insert data into the table: "messages"
+  """
+  insert_messages(
+    """the rows to be inserted"""
+    objects: [messages_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: messages_on_conflict
+  ): messages_mutation_response
+
+  """
+  insert a single row into the table: "messages"
+  """
+  insert_messages_one(
+    """the row to be inserted"""
+    object: messages_insert_input!
+
+    """on conflict condition"""
+    on_conflict: messages_on_conflict
+  ): messages
+
+  """
+  insert data into the table: "participant_room"
+  """
+  insert_participant_room(
+    """the rows to be inserted"""
+    objects: [participant_room_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: participant_room_on_conflict
+  ): participant_room_mutation_response
+
+  """
+  insert a single row into the table: "participant_room"
+  """
+  insert_participant_room_one(
+    """the row to be inserted"""
+    object: participant_room_insert_input!
+
+    """on conflict condition"""
+    on_conflict: participant_room_on_conflict
+  ): participant_room
+
+  """
+  insert data into the table: "participant_type"
+  """
+  insert_participant_type(
+    """the rows to be inserted"""
+    objects: [participant_type_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: participant_type_on_conflict
+  ): participant_type_mutation_response
+
+  """
+  insert a single row into the table: "participant_type"
+  """
+  insert_participant_type_one(
+    """the row to be inserted"""
+    object: participant_type_insert_input!
+
+    """on conflict condition"""
+    on_conflict: participant_type_on_conflict
+  ): participant_type
+
+  """
+  insert data into the table: "participants"
+  """
+  insert_participants(
+    """the rows to be inserted"""
+    objects: [participants_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: participants_on_conflict
+  ): participants_mutation_response
+
+  """
+  insert a single row into the table: "participants"
+  """
+  insert_participants_one(
+    """the row to be inserted"""
+    object: participants_insert_input!
+
+    """on conflict condition"""
+    on_conflict: participants_on_conflict
+  ): participants
+
+  """
+  insert data into the table: "room_status"
+  """
+  insert_room_status(
+    """the rows to be inserted"""
+    objects: [room_status_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: room_status_on_conflict
+  ): room_status_mutation_response
+
+  """
+  insert a single row into the table: "room_status"
+  """
+  insert_room_status_one(
+    """the row to be inserted"""
+    object: room_status_insert_input!
+
+    """on conflict condition"""
+    on_conflict: room_status_on_conflict
+  ): room_status
+
+  """
+  insert data into the table: "room_type"
+  """
+  insert_room_type(
+    """the rows to be inserted"""
+    objects: [room_type_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: room_type_on_conflict
+  ): room_type_mutation_response
+
+  """
+  insert a single row into the table: "room_type"
+  """
+  insert_room_type_one(
+    """the row to be inserted"""
+    object: room_type_insert_input!
+
+    """on conflict condition"""
+    on_conflict: room_type_on_conflict
+  ): room_type
+
+  """
+  insert data into the table: "room_visibility"
+  """
+  insert_room_visibility(
+    """the rows to be inserted"""
+    objects: [room_visibility_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: room_visibility_on_conflict
+  ): room_visibility_mutation_response
+
+  """
+  insert a single row into the table: "room_visibility"
+  """
+  insert_room_visibility_one(
+    """the row to be inserted"""
+    object: room_visibility_insert_input!
+
+    """on conflict condition"""
+    on_conflict: room_visibility_on_conflict
+  ): room_visibility
+
+  """
+  insert data into the table: "rooms"
+  """
+  insert_rooms(
+    """the rows to be inserted"""
+    objects: [rooms_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: rooms_on_conflict
+  ): rooms_mutation_response
+
+  """
+  insert a single row into the table: "rooms"
+  """
+  insert_rooms_one(
+    """the row to be inserted"""
+    object: rooms_insert_input!
+
+    """on conflict condition"""
+    on_conflict: rooms_on_conflict
+  ): rooms
+
+  """
+  insert data into the table: "ticket_messages"
+  """
+  insert_ticket_messages(
+    """the rows to be inserted"""
+    objects: [ticket_messages_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: ticket_messages_on_conflict
+  ): ticket_messages_mutation_response
+
+  """
+  insert a single row into the table: "ticket_messages"
+  """
+  insert_ticket_messages_one(
+    """the row to be inserted"""
+    object: ticket_messages_insert_input!
+
+    """on conflict condition"""
+    on_conflict: ticket_messages_on_conflict
+  ): ticket_messages
+
+  """
+  insert data into the table: "ticket_participants"
+  """
+  insert_ticket_participants(
+    """the rows to be inserted"""
+    objects: [ticket_participants_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: ticket_participants_on_conflict
+  ): ticket_participants_mutation_response
+
+  """
+  insert a single row into the table: "ticket_participants"
+  """
+  insert_ticket_participants_one(
+    """the row to be inserted"""
+    object: ticket_participants_insert_input!
+
+    """on conflict condition"""
+    on_conflict: ticket_participants_on_conflict
+  ): ticket_participants
+
+  """
+  insert data into the table: "ticket_states"
+  """
+  insert_ticket_states(
+    """the rows to be inserted"""
+    objects: [ticket_states_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: ticket_states_on_conflict
+  ): ticket_states_mutation_response
+
+  """
+  insert a single row into the table: "ticket_states"
+  """
+  insert_ticket_states_one(
+    """the row to be inserted"""
+    object: ticket_states_insert_input!
+
+    """on conflict condition"""
+    on_conflict: ticket_states_on_conflict
+  ): ticket_states
+
+  """
+  insert data into the table: "tickets"
+  """
+  insert_tickets(
+    """the rows to be inserted"""
+    objects: [tickets_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: tickets_on_conflict
+  ): tickets_mutation_response
+
+  """
+  insert a single row into the table: "tickets"
+  """
+  insert_tickets_one(
+    """the row to be inserted"""
+    object: tickets_insert_input!
+
+    """on conflict condition"""
+    on_conflict: tickets_on_conflict
+  ): tickets
+
+  """
+  insert data into the table: "users"
+  """
+  insert_users(
+    """the rows to be inserted"""
+    objects: [users_insert_input!]!
+
+    """on conflict condition"""
+    on_conflict: users_on_conflict
+  ): users_mutation_response
+
+  """
+  insert a single row into the table: "users"
+  """
+  insert_users_one(
+    """the row to be inserted"""
+    object: users_insert_input!
+
+    """on conflict condition"""
+    on_conflict: users_on_conflict
+  ): users
+
+  """
+  update data of the table: "attachment_extensions"
+  """
+  update_attachment_extensions(
+    """sets the columns of the filtered rows to the given values"""
+    _set: attachment_extensions_set_input
+
+    """filter the rows which have to be updated"""
+    where: attachment_extensions_bool_exp!
+  ): attachment_extensions_mutation_response
+
+  """
+  update single row of the table: "attachment_extensions"
+  """
+  update_attachment_extensions_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: attachment_extensions_set_input
+    pk_columns: attachment_extensions_pk_columns_input!
+  ): attachment_extensions
+
+  """
+  update data of the table: "attachments"
+  """
+  update_attachments(
+    """sets the columns of the filtered rows to the given values"""
+    _set: attachments_set_input
+
+    """filter the rows which have to be updated"""
+    where: attachments_bool_exp!
+  ): attachments_mutation_response
+
+  """
+  update single row of the table: "attachments"
+  """
+  update_attachments_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: attachments_set_input
+    pk_columns: attachments_pk_columns_input!
+  ): attachments
+
+  """
+  update data of the table: "is_participant_online"
+  """
+  update_is_participant_online(
+    """sets the columns of the filtered rows to the given values"""
+    _set: is_participant_online_set_input
+
+    """filter the rows which have to be updated"""
+    where: is_participant_online_bool_exp!
+  ): is_participant_online_mutation_response
+
+  """
+  update single row of the table: "is_participant_online"
+  """
+  update_is_participant_online_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: is_participant_online_set_input
+    pk_columns: is_participant_online_pk_columns_input!
+  ): is_participant_online
+
+  """
+  update data of the table: "messages"
+  """
+  update_messages(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: messages_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: messages_set_input
+
+    """filter the rows which have to be updated"""
+    where: messages_bool_exp!
+  ): messages_mutation_response
+
+  """
+  update single row of the table: "messages"
+  """
+  update_messages_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: messages_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: messages_set_input
+    pk_columns: messages_pk_columns_input!
+  ): messages
+
+  """
+  update data of the table: "participant_room"
+  """
+  update_participant_room(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: participant_room_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: participant_room_set_input
+
+    """filter the rows which have to be updated"""
+    where: participant_room_bool_exp!
+  ): participant_room_mutation_response
+
+  """
+  update single row of the table: "participant_room"
+  """
+  update_participant_room_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: participant_room_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: participant_room_set_input
+    pk_columns: participant_room_pk_columns_input!
+  ): participant_room
+
+  """
+  update data of the table: "participant_type"
+  """
+  update_participant_type(
+    """sets the columns of the filtered rows to the given values"""
+    _set: participant_type_set_input
+
+    """filter the rows which have to be updated"""
+    where: participant_type_bool_exp!
+  ): participant_type_mutation_response
+
+  """
+  update single row of the table: "participant_type"
+  """
+  update_participant_type_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: participant_type_set_input
+    pk_columns: participant_type_pk_columns_input!
+  ): participant_type
+
+  """
+  update data of the table: "participants"
+  """
+  update_participants(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: participants_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: participants_set_input
+
+    """filter the rows which have to be updated"""
+    where: participants_bool_exp!
+  ): participants_mutation_response
+
+  """
+  update single row of the table: "participants"
+  """
+  update_participants_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: participants_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: participants_set_input
+    pk_columns: participants_pk_columns_input!
+  ): participants
+
+  """
+  update data of the table: "room_status"
+  """
+  update_room_status(
+    """sets the columns of the filtered rows to the given values"""
+    _set: room_status_set_input
+
+    """filter the rows which have to be updated"""
+    where: room_status_bool_exp!
+  ): room_status_mutation_response
+
+  """
+  update single row of the table: "room_status"
+  """
+  update_room_status_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: room_status_set_input
+    pk_columns: room_status_pk_columns_input!
+  ): room_status
+
+  """
+  update data of the table: "room_type"
+  """
+  update_room_type(
+    """sets the columns of the filtered rows to the given values"""
+    _set: room_type_set_input
+
+    """filter the rows which have to be updated"""
+    where: room_type_bool_exp!
+  ): room_type_mutation_response
+
+  """
+  update single row of the table: "room_type"
+  """
+  update_room_type_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: room_type_set_input
+    pk_columns: room_type_pk_columns_input!
+  ): room_type
+
+  """
+  update data of the table: "room_visibility"
+  """
+  update_room_visibility(
+    """sets the columns of the filtered rows to the given values"""
+    _set: room_visibility_set_input
+
+    """filter the rows which have to be updated"""
+    where: room_visibility_bool_exp!
+  ): room_visibility_mutation_response
+
+  """
+  update single row of the table: "room_visibility"
+  """
+  update_room_visibility_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: room_visibility_set_input
+    pk_columns: room_visibility_pk_columns_input!
+  ): room_visibility
+
+  """
+  update data of the table: "rooms"
+  """
+  update_rooms(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: rooms_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: rooms_set_input
+
+    """filter the rows which have to be updated"""
+    where: rooms_bool_exp!
+  ): rooms_mutation_response
+
+  """
+  update single row of the table: "rooms"
+  """
+  update_rooms_by_pk(
+    """increments the numeric columns with given value of the filtered values"""
+    _inc: rooms_inc_input
+
+    """sets the columns of the filtered rows to the given values"""
+    _set: rooms_set_input
+    pk_columns: rooms_pk_columns_input!
+  ): rooms
+
+  """
+  update data of the table: "ticket_messages"
+  """
+  update_ticket_messages(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ticket_messages_set_input
+
+    """filter the rows which have to be updated"""
+    where: ticket_messages_bool_exp!
+  ): ticket_messages_mutation_response
+
+  """
+  update single row of the table: "ticket_messages"
+  """
+  update_ticket_messages_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ticket_messages_set_input
+    pk_columns: ticket_messages_pk_columns_input!
+  ): ticket_messages
+
+  """
+  update data of the table: "ticket_participants"
+  """
+  update_ticket_participants(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ticket_participants_set_input
+
+    """filter the rows which have to be updated"""
+    where: ticket_participants_bool_exp!
+  ): ticket_participants_mutation_response
+
+  """
+  update single row of the table: "ticket_participants"
+  """
+  update_ticket_participants_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ticket_participants_set_input
+    pk_columns: ticket_participants_pk_columns_input!
+  ): ticket_participants
+
+  """
+  update data of the table: "ticket_states"
+  """
+  update_ticket_states(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ticket_states_set_input
+
+    """filter the rows which have to be updated"""
+    where: ticket_states_bool_exp!
+  ): ticket_states_mutation_response
+
+  """
+  update single row of the table: "ticket_states"
+  """
+  update_ticket_states_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: ticket_states_set_input
+    pk_columns: ticket_states_pk_columns_input!
+  ): ticket_states
+
+  """
+  update data of the table: "tickets"
+  """
+  update_tickets(
+    """sets the columns of the filtered rows to the given values"""
+    _set: tickets_set_input
+
+    """filter the rows which have to be updated"""
+    where: tickets_bool_exp!
+  ): tickets_mutation_response
+
+  """
+  update single row of the table: "tickets"
+  """
+  update_tickets_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: tickets_set_input
+    pk_columns: tickets_pk_columns_input!
+  ): tickets
+
+  """
+  update data of the table: "users"
+  """
+  update_users(
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_set_input
+
+    """filter the rows which have to be updated"""
+    where: users_bool_exp!
+  ): users_mutation_response
+
+  """
+  update single row of the table: "users"
+  """
+  update_users_by_pk(
+    """sets the columns of the filtered rows to the given values"""
+    _set: users_set_input
+    pk_columns: users_pk_columns_input!
+  ): users
+}
+
+"""column ordering options"""
+enum order_by {
+  """in ascending order, nulls last"""
+  asc
+
+  """in ascending order, nulls first"""
+  asc_nulls_first
+
+  """in ascending order, nulls last"""
+  asc_nulls_last
+
+  """in descending order, nulls first"""
+  desc
+
+  """in descending order, nulls first"""
+  desc_nulls_first
+
+  """in descending order, nulls last"""
+  desc_nulls_last
+}
+
+"""
+columns and relationships of "participant_room"
+"""
+type participant_room {
+  created_at: timestamptz!
+  id: Int!
+  is_room_owner: Boolean!
+
+  """An object relationship"""
+  message: messages
+
+  """An object relationship"""
+  participant: participants!
+  participant_id: Int!
+
+  """An object relationship"""
+  room: rooms!
+  room_id: Int!
+  unread_count: Int!
+  unread_message_id: Int
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "participant_room"
+"""
+type participant_room_aggregate {
+  aggregate: participant_room_aggregate_fields
+  nodes: [participant_room!]!
+}
+
+"""
+aggregate fields of "participant_room"
+"""
+type participant_room_aggregate_fields {
+  avg: participant_room_avg_fields
+  count(columns: [participant_room_select_column!], distinct: Boolean): Int!
+  max: participant_room_max_fields
+  min: participant_room_min_fields
+  stddev: participant_room_stddev_fields
+  stddev_pop: participant_room_stddev_pop_fields
+  stddev_samp: participant_room_stddev_samp_fields
+  sum: participant_room_sum_fields
+  var_pop: participant_room_var_pop_fields
+  var_samp: participant_room_var_samp_fields
+  variance: participant_room_variance_fields
+}
+
+"""
+order by aggregate values of table "participant_room"
+"""
+input participant_room_aggregate_order_by {
+  avg: participant_room_avg_order_by
+  count: order_by
+  max: participant_room_max_order_by
+  min: participant_room_min_order_by
+  stddev: participant_room_stddev_order_by
+  stddev_pop: participant_room_stddev_pop_order_by
+  stddev_samp: participant_room_stddev_samp_order_by
+  sum: participant_room_sum_order_by
+  var_pop: participant_room_var_pop_order_by
+  var_samp: participant_room_var_samp_order_by
+  variance: participant_room_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "participant_room"
+"""
+input participant_room_arr_rel_insert_input {
+  data: [participant_room_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: participant_room_on_conflict
+}
+
+"""aggregate avg on columns"""
+type participant_room_avg_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+  unread_count: Float
+  unread_message_id: Float
+}
+
+"""
+order by avg() on columns of table "participant_room"
+"""
+input participant_room_avg_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "participant_room". All fields are combined with a logical 'AND'.
+"""
+input participant_room_bool_exp {
+  _and: [participant_room_bool_exp!]
+  _not: participant_room_bool_exp
+  _or: [participant_room_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  id: Int_comparison_exp
+  is_room_owner: Boolean_comparison_exp
+  message: messages_bool_exp
+  participant: participants_bool_exp
+  participant_id: Int_comparison_exp
+  room: rooms_bool_exp
+  room_id: Int_comparison_exp
+  unread_count: Int_comparison_exp
+  unread_message_id: Int_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "participant_room"
+"""
+enum participant_room_constraint {
+  """unique or primary key constraint"""
+  participant_room_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "participant_room"
+"""
+input participant_room_inc_input {
+  id: Int
+  participant_id: Int
+  room_id: Int
+  unread_count: Int
+  unread_message_id: Int
+}
+
+"""
+input type for inserting data into table "participant_room"
+"""
+input participant_room_insert_input {
+  created_at: timestamptz
+  id: Int
+  is_room_owner: Boolean
+  message: messages_obj_rel_insert_input
+  participant: participants_obj_rel_insert_input
+  participant_id: Int
+  room: rooms_obj_rel_insert_input
+  room_id: Int
+  unread_count: Int
+  unread_message_id: Int
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type participant_room_max_fields {
+  created_at: timestamptz
+  id: Int
+  participant_id: Int
+  room_id: Int
+  unread_count: Int
+  unread_message_id: Int
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "participant_room"
+"""
+input participant_room_max_order_by {
+  created_at: order_by
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type participant_room_min_fields {
+  created_at: timestamptz
+  id: Int
+  participant_id: Int
+  room_id: Int
+  unread_count: Int
+  unread_message_id: Int
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "participant_room"
+"""
+input participant_room_min_order_by {
+  created_at: order_by
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "participant_room"
+"""
+type participant_room_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [participant_room!]!
+}
+
+"""
+on conflict condition type for table "participant_room"
+"""
+input participant_room_on_conflict {
+  constraint: participant_room_constraint!
+  update_columns: [participant_room_update_column!]! = []
+  where: participant_room_bool_exp
+}
+
+"""Ordering options when selecting data from "participant_room"."""
+input participant_room_order_by {
+  created_at: order_by
+  id: order_by
+  is_room_owner: order_by
+  message: messages_order_by
+  participant: participants_order_by
+  participant_id: order_by
+  room: rooms_order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: participant_room"""
+input participant_room_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "participant_room"
+"""
+enum participant_room_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  is_room_owner
+
+  """column name"""
+  participant_id
+
+  """column name"""
+  room_id
+
+  """column name"""
+  unread_count
+
+  """column name"""
+  unread_message_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "participant_room"
+"""
+input participant_room_set_input {
+  created_at: timestamptz
+  id: Int
+  is_room_owner: Boolean
+  participant_id: Int
+  room_id: Int
+  unread_count: Int
+  unread_message_id: Int
+  updated_at: timestamptz
+}
+
+"""aggregate stddev on columns"""
+type participant_room_stddev_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+  unread_count: Float
+  unread_message_id: Float
+}
+
+"""
+order by stddev() on columns of table "participant_room"
+"""
+input participant_room_stddev_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type participant_room_stddev_pop_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+  unread_count: Float
+  unread_message_id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "participant_room"
+"""
+input participant_room_stddev_pop_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type participant_room_stddev_samp_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+  unread_count: Float
+  unread_message_id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "participant_room"
+"""
+input participant_room_stddev_samp_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+}
+
+"""aggregate sum on columns"""
+type participant_room_sum_fields {
+  id: Int
+  participant_id: Int
+  room_id: Int
+  unread_count: Int
+  unread_message_id: Int
+}
+
+"""
+order by sum() on columns of table "participant_room"
+"""
+input participant_room_sum_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+}
+
+"""
+update columns of table "participant_room"
+"""
+enum participant_room_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  id
+
+  """column name"""
+  is_room_owner
+
+  """column name"""
+  participant_id
+
+  """column name"""
+  room_id
+
+  """column name"""
+  unread_count
+
+  """column name"""
+  unread_message_id
+
+  """column name"""
+  updated_at
+}
+
+"""aggregate var_pop on columns"""
+type participant_room_var_pop_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+  unread_count: Float
+  unread_message_id: Float
+}
+
+"""
+order by var_pop() on columns of table "participant_room"
+"""
+input participant_room_var_pop_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type participant_room_var_samp_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+  unread_count: Float
+  unread_message_id: Float
+}
+
+"""
+order by var_samp() on columns of table "participant_room"
+"""
+input participant_room_var_samp_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+}
+
+"""aggregate variance on columns"""
+type participant_room_variance_fields {
+  id: Float
+  participant_id: Float
+  room_id: Float
+  unread_count: Float
+  unread_message_id: Float
+}
+
+"""
+order by variance() on columns of table "participant_room"
+"""
+input participant_room_variance_order_by {
+  id: order_by
+  participant_id: order_by
+  room_id: order_by
+  unread_count: order_by
+  unread_message_id: order_by
+}
+
+"""
+columns and relationships of "participant_type"
+"""
+type participant_type {
+  description: String
+
+  """An array relationship"""
+  participants(
+    """distinct select on columns"""
+    distinct_on: [participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participants_order_by!]
+
+    """filter the rows returned"""
+    where: participants_bool_exp
+  ): [participants!]!
+
+  """An aggregate relationship"""
+  participants_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participants_order_by!]
+
+    """filter the rows returned"""
+    where: participants_bool_exp
+  ): participants_aggregate!
+  type: String!
+}
+
+"""
+aggregated selection of "participant_type"
+"""
+type participant_type_aggregate {
+  aggregate: participant_type_aggregate_fields
+  nodes: [participant_type!]!
+}
+
+"""
+aggregate fields of "participant_type"
+"""
+type participant_type_aggregate_fields {
+  count(columns: [participant_type_select_column!], distinct: Boolean): Int!
+  max: participant_type_max_fields
+  min: participant_type_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "participant_type". All fields are combined with a logical 'AND'.
+"""
+input participant_type_bool_exp {
+  _and: [participant_type_bool_exp!]
+  _not: participant_type_bool_exp
+  _or: [participant_type_bool_exp!]
+  description: String_comparison_exp
+  participants: participants_bool_exp
+  type: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "participant_type"
+"""
+enum participant_type_constraint {
+  """unique or primary key constraint"""
+  participant_type_pkey
+}
+
+"""
+input type for inserting data into table "participant_type"
+"""
+input participant_type_insert_input {
+  description: String
+  participants: participants_arr_rel_insert_input
+  type: String
+}
+
+"""aggregate max on columns"""
+type participant_type_max_fields {
+  description: String
+  type: String
+}
+
+"""aggregate min on columns"""
+type participant_type_min_fields {
+  description: String
+  type: String
+}
+
+"""
+response of any mutation on the table "participant_type"
+"""
+type participant_type_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [participant_type!]!
+}
+
+"""
+input type for inserting object relation for remote table "participant_type"
+"""
+input participant_type_obj_rel_insert_input {
+  data: participant_type_insert_input!
+
+  """on conflict condition"""
+  on_conflict: participant_type_on_conflict
+}
+
+"""
+on conflict condition type for table "participant_type"
+"""
+input participant_type_on_conflict {
+  constraint: participant_type_constraint!
+  update_columns: [participant_type_update_column!]! = []
+  where: participant_type_bool_exp
+}
+
+"""Ordering options when selecting data from "participant_type"."""
+input participant_type_order_by {
+  description: order_by
+  participants_aggregate: participants_aggregate_order_by
+  type: order_by
+}
+
+"""primary key columns input for table: participant_type"""
+input participant_type_pk_columns_input {
+  type: String!
+}
+
+"""
+select columns of table "participant_type"
+"""
+enum participant_type_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  type
+}
+
+"""
+input type for updating data in table "participant_type"
+"""
+input participant_type_set_input {
+  description: String
+  type: String
+}
+
+"""
+update columns of table "participant_type"
+"""
+enum participant_type_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  type
+}
+
+"""
+columns and relationships of "participants"
+"""
+type participants {
+  created_at: timestamptz
+  customer_id: uuid!
+  customer_name: String!
+  id: Int!
+  is_online: String!
+
+  """An object relationship"""
+  is_participant_online: is_participant_online!
+  name: String!
+
+  """An array relationship"""
+  participant_rooms(
+    """distinct select on columns"""
+    distinct_on: [participant_room_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_room_order_by!]
+
+    """filter the rows returned"""
+    where: participant_room_bool_exp
+  ): [participant_room!]!
+
+  """An aggregate relationship"""
+  participant_rooms_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participant_room_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_room_order_by!]
+
+    """filter the rows returned"""
+    where: participant_room_bool_exp
+  ): participant_room_aggregate!
+
+  """An object relationship"""
+  participant_type: participant_type!
+  patient_token: String
+  type: String!
+  updated_at: timestamptz
+  user_id: uuid!
+}
+
+"""
+aggregated selection of "participants"
+"""
+type participants_aggregate {
+  aggregate: participants_aggregate_fields
+  nodes: [participants!]!
+}
+
+"""
+aggregate fields of "participants"
+"""
+type participants_aggregate_fields {
+  avg: participants_avg_fields
+  count(columns: [participants_select_column!], distinct: Boolean): Int!
+  max: participants_max_fields
+  min: participants_min_fields
+  stddev: participants_stddev_fields
+  stddev_pop: participants_stddev_pop_fields
+  stddev_samp: participants_stddev_samp_fields
+  sum: participants_sum_fields
+  var_pop: participants_var_pop_fields
+  var_samp: participants_var_samp_fields
+  variance: participants_variance_fields
+}
+
+"""
+order by aggregate values of table "participants"
+"""
+input participants_aggregate_order_by {
+  avg: participants_avg_order_by
+  count: order_by
+  max: participants_max_order_by
+  min: participants_min_order_by
+  stddev: participants_stddev_order_by
+  stddev_pop: participants_stddev_pop_order_by
+  stddev_samp: participants_stddev_samp_order_by
+  sum: participants_sum_order_by
+  var_pop: participants_var_pop_order_by
+  var_samp: participants_var_samp_order_by
+  variance: participants_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "participants"
+"""
+input participants_arr_rel_insert_input {
+  data: [participants_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: participants_on_conflict
+}
+
+"""aggregate avg on columns"""
+type participants_avg_fields {
+  id: Float
+}
+
+"""
+order by avg() on columns of table "participants"
+"""
+input participants_avg_order_by {
+  id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "participants". All fields are combined with a logical 'AND'.
+"""
+input participants_bool_exp {
+  _and: [participants_bool_exp!]
+  _not: participants_bool_exp
+  _or: [participants_bool_exp!]
+  created_at: timestamptz_comparison_exp
+  customer_id: uuid_comparison_exp
+  customer_name: String_comparison_exp
+  id: Int_comparison_exp
+  is_online: String_comparison_exp
+  is_participant_online: is_participant_online_bool_exp
+  name: String_comparison_exp
+  participant_rooms: participant_room_bool_exp
+  participant_type: participant_type_bool_exp
+  patient_token: String_comparison_exp
+  type: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+  user_id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "participants"
+"""
+enum participants_constraint {
+  """unique or primary key constraint"""
+  participants_pkey
+
+  """unique or primary key constraint"""
+  participants_user_id_key
+}
+
+"""
+input type for incrementing numeric columns in table "participants"
+"""
+input participants_inc_input {
+  id: Int
+}
+
+"""
+input type for inserting data into table "participants"
+"""
+input participants_insert_input {
+  created_at: timestamptz
+  customer_id: uuid
+  customer_name: String
+  id: Int
+  is_online: String
+  is_participant_online: is_participant_online_obj_rel_insert_input
+  name: String
+  participant_rooms: participant_room_arr_rel_insert_input
+  participant_type: participant_type_obj_rel_insert_input
+  patient_token: String
+  type: String
+  updated_at: timestamptz
+  user_id: uuid
+}
+
+"""aggregate max on columns"""
+type participants_max_fields {
+  created_at: timestamptz
+  customer_id: uuid
+  customer_name: String
+  id: Int
+  is_online: String
+  name: String
+  patient_token: String
+  type: String
+  updated_at: timestamptz
+  user_id: uuid
+}
+
+"""
+order by max() on columns of table "participants"
+"""
+input participants_max_order_by {
+  created_at: order_by
+  customer_id: order_by
+  customer_name: order_by
+  id: order_by
+  is_online: order_by
+  name: order_by
+  patient_token: order_by
+  type: order_by
+  updated_at: order_by
+  user_id: order_by
+}
+
+"""aggregate min on columns"""
+type participants_min_fields {
+  created_at: timestamptz
+  customer_id: uuid
+  customer_name: String
+  id: Int
+  is_online: String
+  name: String
+  patient_token: String
+  type: String
+  updated_at: timestamptz
+  user_id: uuid
+}
+
+"""
+order by min() on columns of table "participants"
+"""
+input participants_min_order_by {
+  created_at: order_by
+  customer_id: order_by
+  customer_name: order_by
+  id: order_by
+  is_online: order_by
+  name: order_by
+  patient_token: order_by
+  type: order_by
+  updated_at: order_by
+  user_id: order_by
+}
+
+"""
+response of any mutation on the table "participants"
+"""
+type participants_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [participants!]!
+}
+
+"""
+input type for inserting object relation for remote table "participants"
+"""
+input participants_obj_rel_insert_input {
+  data: participants_insert_input!
+
+  """on conflict condition"""
+  on_conflict: participants_on_conflict
+}
+
+"""
+on conflict condition type for table "participants"
+"""
+input participants_on_conflict {
+  constraint: participants_constraint!
+  update_columns: [participants_update_column!]! = []
+  where: participants_bool_exp
+}
+
+"""Ordering options when selecting data from "participants"."""
+input participants_order_by {
+  created_at: order_by
+  customer_id: order_by
+  customer_name: order_by
+  id: order_by
+  is_online: order_by
+  is_participant_online: is_participant_online_order_by
+  name: order_by
+  participant_rooms_aggregate: participant_room_aggregate_order_by
+  participant_type: participant_type_order_by
+  patient_token: order_by
+  type: order_by
+  updated_at: order_by
+  user_id: order_by
+}
+
+"""primary key columns input for table: participants"""
+input participants_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "participants"
+"""
+enum participants_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  customer_id
+
+  """column name"""
+  customer_name
+
+  """column name"""
+  id
+
+  """column name"""
+  is_online
+
+  """column name"""
+  name
+
+  """column name"""
+  patient_token
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  user_id
+}
+
+"""
+input type for updating data in table "participants"
+"""
+input participants_set_input {
+  created_at: timestamptz
+  customer_id: uuid
+  customer_name: String
+  id: Int
+  is_online: String
+  name: String
+  patient_token: String
+  type: String
+  updated_at: timestamptz
+  user_id: uuid
+}
+
+"""aggregate stddev on columns"""
+type participants_stddev_fields {
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "participants"
+"""
+input participants_stddev_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type participants_stddev_pop_fields {
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "participants"
+"""
+input participants_stddev_pop_order_by {
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type participants_stddev_samp_fields {
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "participants"
+"""
+input participants_stddev_samp_order_by {
+  id: order_by
+}
+
+"""aggregate sum on columns"""
+type participants_sum_fields {
+  id: Int
+}
+
+"""
+order by sum() on columns of table "participants"
+"""
+input participants_sum_order_by {
+  id: order_by
+}
+
+"""
+update columns of table "participants"
+"""
+enum participants_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  customer_id
+
+  """column name"""
+  customer_name
+
+  """column name"""
+  id
+
+  """column name"""
+  is_online
+
+  """column name"""
+  name
+
+  """column name"""
+  patient_token
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  user_id
+}
+
+"""aggregate var_pop on columns"""
+type participants_var_pop_fields {
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "participants"
+"""
+input participants_var_pop_order_by {
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type participants_var_samp_fields {
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "participants"
+"""
+input participants_var_samp_order_by {
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type participants_variance_fields {
+  id: Float
+}
+
+"""
+order by variance() on columns of table "participants"
+"""
+input participants_variance_order_by {
+  id: order_by
+}
+
+type query_root {
+  """
+  fetch data from the table: "attachment_extensions"
+  """
+  attachment_extensions(
+    """distinct select on columns"""
+    distinct_on: [attachment_extensions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachment_extensions_order_by!]
+
+    """filter the rows returned"""
+    where: attachment_extensions_bool_exp
+  ): [attachment_extensions!]!
+
+  """
+  fetch aggregated fields from the table: "attachment_extensions"
+  """
+  attachment_extensions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [attachment_extensions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachment_extensions_order_by!]
+
+    """filter the rows returned"""
+    where: attachment_extensions_bool_exp
+  ): attachment_extensions_aggregate!
+
+  """
+  fetch data from the table: "attachment_extensions" using primary key columns
+  """
+  attachment_extensions_by_pk(name: String!): attachment_extensions
+
+  """An array relationship"""
+  attachments(
+    """distinct select on columns"""
+    distinct_on: [attachments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachments_order_by!]
+
+    """filter the rows returned"""
+    where: attachments_bool_exp
+  ): [attachments!]!
+
+  """An aggregate relationship"""
+  attachments_aggregate(
+    """distinct select on columns"""
+    distinct_on: [attachments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachments_order_by!]
+
+    """filter the rows returned"""
+    where: attachments_bool_exp
+  ): attachments_aggregate!
+
+  """fetch data from the table: "attachments" using primary key columns"""
+  attachments_by_pk(id: uuid!): attachments
+
+  """
+  fetch data from the table: "is_participant_online"
+  """
+  is_participant_online(
+    """distinct select on columns"""
+    distinct_on: [is_participant_online_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [is_participant_online_order_by!]
+
+    """filter the rows returned"""
+    where: is_participant_online_bool_exp
+  ): [is_participant_online!]!
+
+  """
+  fetch aggregated fields from the table: "is_participant_online"
+  """
+  is_participant_online_aggregate(
+    """distinct select on columns"""
+    distinct_on: [is_participant_online_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [is_participant_online_order_by!]
+
+    """filter the rows returned"""
+    where: is_participant_online_bool_exp
+  ): is_participant_online_aggregate!
+
+  """
+  fetch data from the table: "is_participant_online" using primary key columns
+  """
+  is_participant_online_by_pk(is_online: String!): is_participant_online
+
+  """An array relationship"""
+  messages(
+    """distinct select on columns"""
+    distinct_on: [messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [messages_order_by!]
+
+    """filter the rows returned"""
+    where: messages_bool_exp
+  ): [messages!]!
+
+  """An aggregate relationship"""
+  messages_aggregate(
+    """distinct select on columns"""
+    distinct_on: [messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [messages_order_by!]
+
+    """filter the rows returned"""
+    where: messages_bool_exp
+  ): messages_aggregate!
+
+  """fetch data from the table: "messages" using primary key columns"""
+  messages_by_pk(id: Int!): messages
+
+  """
+  fetch data from the table: "participant_room"
+  """
+  participant_room(
+    """distinct select on columns"""
+    distinct_on: [participant_room_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_room_order_by!]
+
+    """filter the rows returned"""
+    where: participant_room_bool_exp
+  ): [participant_room!]!
+
+  """
+  fetch aggregated fields from the table: "participant_room"
+  """
+  participant_room_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participant_room_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_room_order_by!]
+
+    """filter the rows returned"""
+    where: participant_room_bool_exp
+  ): participant_room_aggregate!
+
+  """
+  fetch data from the table: "participant_room" using primary key columns
+  """
+  participant_room_by_pk(id: Int!): participant_room
+
+  """
+  fetch data from the table: "participant_type"
+  """
+  participant_type(
+    """distinct select on columns"""
+    distinct_on: [participant_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_type_order_by!]
+
+    """filter the rows returned"""
+    where: participant_type_bool_exp
+  ): [participant_type!]!
+
+  """
+  fetch aggregated fields from the table: "participant_type"
+  """
+  participant_type_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participant_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_type_order_by!]
+
+    """filter the rows returned"""
+    where: participant_type_bool_exp
+  ): participant_type_aggregate!
+
+  """
+  fetch data from the table: "participant_type" using primary key columns
+  """
+  participant_type_by_pk(type: String!): participant_type
+
+  """An array relationship"""
+  participants(
+    """distinct select on columns"""
+    distinct_on: [participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participants_order_by!]
+
+    """filter the rows returned"""
+    where: participants_bool_exp
+  ): [participants!]!
+
+  """An aggregate relationship"""
+  participants_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participants_order_by!]
+
+    """filter the rows returned"""
+    where: participants_bool_exp
+  ): participants_aggregate!
+
+  """fetch data from the table: "participants" using primary key columns"""
+  participants_by_pk(id: Int!): participants
+
+  """
+  fetch data from the table: "room_status"
+  """
+  room_status(
+    """distinct select on columns"""
+    distinct_on: [room_status_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_status_order_by!]
+
+    """filter the rows returned"""
+    where: room_status_bool_exp
+  ): [room_status!]!
+
+  """
+  fetch aggregated fields from the table: "room_status"
+  """
+  room_status_aggregate(
+    """distinct select on columns"""
+    distinct_on: [room_status_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_status_order_by!]
+
+    """filter the rows returned"""
+    where: room_status_bool_exp
+  ): room_status_aggregate!
+
+  """fetch data from the table: "room_status" using primary key columns"""
+  room_status_by_pk(status: String!): room_status
+
+  """
+  fetch data from the table: "room_type"
+  """
+  room_type(
+    """distinct select on columns"""
+    distinct_on: [room_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_type_order_by!]
+
+    """filter the rows returned"""
+    where: room_type_bool_exp
+  ): [room_type!]!
+
+  """
+  fetch aggregated fields from the table: "room_type"
+  """
+  room_type_aggregate(
+    """distinct select on columns"""
+    distinct_on: [room_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_type_order_by!]
+
+    """filter the rows returned"""
+    where: room_type_bool_exp
+  ): room_type_aggregate!
+
+  """fetch data from the table: "room_type" using primary key columns"""
+  room_type_by_pk(type: String!): room_type
+
+  """
+  fetch data from the table: "room_visibility"
+  """
+  room_visibility(
+    """distinct select on columns"""
+    distinct_on: [room_visibility_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_visibility_order_by!]
+
+    """filter the rows returned"""
+    where: room_visibility_bool_exp
+  ): [room_visibility!]!
+
+  """
+  fetch aggregated fields from the table: "room_visibility"
+  """
+  room_visibility_aggregate(
+    """distinct select on columns"""
+    distinct_on: [room_visibility_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_visibility_order_by!]
+
+    """filter the rows returned"""
+    where: room_visibility_bool_exp
+  ): room_visibility_aggregate!
+
+  """fetch data from the table: "room_visibility" using primary key columns"""
+  room_visibility_by_pk(visibility: String!): room_visibility
+
+  """
+  fetch data from the table: "rooms"
+  """
+  rooms(
+    """distinct select on columns"""
+    distinct_on: [rooms_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rooms_order_by!]
+
+    """filter the rows returned"""
+    where: rooms_bool_exp
+  ): [rooms!]!
+
+  """An aggregate relationship"""
+  rooms_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rooms_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rooms_order_by!]
+
+    """filter the rows returned"""
+    where: rooms_bool_exp
+  ): rooms_aggregate!
+
+  """fetch data from the table: "rooms" using primary key columns"""
+  rooms_by_pk(id: Int!): rooms
+
+  """An array relationship"""
+  ticket_messages(
+    """distinct select on columns"""
+    distinct_on: [ticket_messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_messages_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_messages_bool_exp
+  ): [ticket_messages!]!
+
+  """An aggregate relationship"""
+  ticket_messages_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ticket_messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_messages_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_messages_bool_exp
+  ): ticket_messages_aggregate!
+
+  """fetch data from the table: "ticket_messages" using primary key columns"""
+  ticket_messages_by_pk(id: uuid!): ticket_messages
+
+  """An array relationship"""
+  ticket_participants(
+    """distinct select on columns"""
+    distinct_on: [ticket_participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_participants_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_participants_bool_exp
+  ): [ticket_participants!]!
+
+  """An aggregate relationship"""
+  ticket_participants_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ticket_participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_participants_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_participants_bool_exp
+  ): ticket_participants_aggregate!
+
+  """
+  fetch data from the table: "ticket_participants" using primary key columns
+  """
+  ticket_participants_by_pk(participant_id: uuid!, ticket_id: uuid!): ticket_participants
+
+  """
+  fetch data from the table: "ticket_states"
+  """
+  ticket_states(
+    """distinct select on columns"""
+    distinct_on: [ticket_states_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_states_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_states_bool_exp
+  ): [ticket_states!]!
+
+  """
+  fetch aggregated fields from the table: "ticket_states"
+  """
+  ticket_states_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ticket_states_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_states_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_states_bool_exp
+  ): ticket_states_aggregate!
+
+  """fetch data from the table: "ticket_states" using primary key columns"""
+  ticket_states_by_pk(name: String!): ticket_states
+
+  """An array relationship"""
+  tickets(
+    """distinct select on columns"""
+    distinct_on: [tickets_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tickets_order_by!]
+
+    """filter the rows returned"""
+    where: tickets_bool_exp
+  ): [tickets!]!
+
+  """An aggregate relationship"""
+  tickets_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tickets_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tickets_order_by!]
+
+    """filter the rows returned"""
+    where: tickets_bool_exp
+  ): tickets_aggregate!
+
+  """fetch data from the table: "tickets" using primary key columns"""
+  tickets_by_pk(id: uuid!): tickets
+
+  """
+  fetch data from the table: "users"
+  """
+  users(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
+
+  """
+  fetch aggregated fields from the table: "users"
+  """
+  users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): users_aggregate!
+
+  """fetch data from the table: "users" using primary key columns"""
+  users_by_pk(id: uuid!): users
+}
+
+"""
+columns and relationships of "room_status"
+"""
+type room_status {
+  description: String
+
+  """
+  fetch data from the table: "rooms"
+  """
+  rooms(
+    """distinct select on columns"""
+    distinct_on: [rooms_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rooms_order_by!]
+
+    """filter the rows returned"""
+    where: rooms_bool_exp
+  ): [rooms!]!
+
+  """An aggregate relationship"""
+  rooms_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rooms_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rooms_order_by!]
+
+    """filter the rows returned"""
+    where: rooms_bool_exp
+  ): rooms_aggregate!
+  status: String!
+}
+
+"""
+aggregated selection of "room_status"
+"""
+type room_status_aggregate {
+  aggregate: room_status_aggregate_fields
+  nodes: [room_status!]!
+}
+
+"""
+aggregate fields of "room_status"
+"""
+type room_status_aggregate_fields {
+  count(columns: [room_status_select_column!], distinct: Boolean): Int!
+  max: room_status_max_fields
+  min: room_status_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "room_status". All fields are combined with a logical 'AND'.
+"""
+input room_status_bool_exp {
+  _and: [room_status_bool_exp!]
+  _not: room_status_bool_exp
+  _or: [room_status_bool_exp!]
+  description: String_comparison_exp
+  rooms: rooms_bool_exp
+  status: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "room_status"
+"""
+enum room_status_constraint {
+  """unique or primary key constraint"""
+  room_status_pkey
+
+  """unique or primary key constraint"""
+  room_status_status_key
+}
+
+"""
+input type for inserting data into table "room_status"
+"""
+input room_status_insert_input {
+  description: String
+  rooms: rooms_arr_rel_insert_input
+  status: String
+}
+
+"""aggregate max on columns"""
+type room_status_max_fields {
+  description: String
+  status: String
+}
+
+"""aggregate min on columns"""
+type room_status_min_fields {
+  description: String
+  status: String
+}
+
+"""
+response of any mutation on the table "room_status"
+"""
+type room_status_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [room_status!]!
+}
+
+"""
+input type for inserting object relation for remote table "room_status"
+"""
+input room_status_obj_rel_insert_input {
+  data: room_status_insert_input!
+
+  """on conflict condition"""
+  on_conflict: room_status_on_conflict
+}
+
+"""
+on conflict condition type for table "room_status"
+"""
+input room_status_on_conflict {
+  constraint: room_status_constraint!
+  update_columns: [room_status_update_column!]! = []
+  where: room_status_bool_exp
+}
+
+"""Ordering options when selecting data from "room_status"."""
+input room_status_order_by {
+  description: order_by
+  rooms_aggregate: rooms_aggregate_order_by
+  status: order_by
+}
+
+"""primary key columns input for table: room_status"""
+input room_status_pk_columns_input {
+  status: String!
+}
+
+"""
+select columns of table "room_status"
+"""
+enum room_status_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  status
+}
+
+"""
+input type for updating data in table "room_status"
+"""
+input room_status_set_input {
+  description: String
+  status: String
+}
+
+"""
+update columns of table "room_status"
+"""
+enum room_status_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  status
+}
+
+"""
+columns and relationships of "room_type"
+"""
+type room_type {
+  description: String
+
+  """
+  fetch data from the table: "rooms"
+  """
+  rooms(
+    """distinct select on columns"""
+    distinct_on: [rooms_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rooms_order_by!]
+
+    """filter the rows returned"""
+    where: rooms_bool_exp
+  ): [rooms!]!
+
+  """An aggregate relationship"""
+  rooms_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rooms_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rooms_order_by!]
+
+    """filter the rows returned"""
+    where: rooms_bool_exp
+  ): rooms_aggregate!
+  type: String!
+}
+
+"""
+aggregated selection of "room_type"
+"""
+type room_type_aggregate {
+  aggregate: room_type_aggregate_fields
+  nodes: [room_type!]!
+}
+
+"""
+aggregate fields of "room_type"
+"""
+type room_type_aggregate_fields {
+  count(columns: [room_type_select_column!], distinct: Boolean): Int!
+  max: room_type_max_fields
+  min: room_type_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "room_type". All fields are combined with a logical 'AND'.
+"""
+input room_type_bool_exp {
+  _and: [room_type_bool_exp!]
+  _not: room_type_bool_exp
+  _or: [room_type_bool_exp!]
+  description: String_comparison_exp
+  rooms: rooms_bool_exp
+  type: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "room_type"
+"""
+enum room_type_constraint {
+  """unique or primary key constraint"""
+  room_type_pkey
+
+  """unique or primary key constraint"""
+  room_type_type_key
+}
+
+"""
+input type for inserting data into table "room_type"
+"""
+input room_type_insert_input {
+  description: String
+  rooms: rooms_arr_rel_insert_input
+  type: String
+}
+
+"""aggregate max on columns"""
+type room_type_max_fields {
+  description: String
+  type: String
+}
+
+"""aggregate min on columns"""
+type room_type_min_fields {
+  description: String
+  type: String
+}
+
+"""
+response of any mutation on the table "room_type"
+"""
+type room_type_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [room_type!]!
+}
+
+"""
+input type for inserting object relation for remote table "room_type"
+"""
+input room_type_obj_rel_insert_input {
+  data: room_type_insert_input!
+
+  """on conflict condition"""
+  on_conflict: room_type_on_conflict
+}
+
+"""
+on conflict condition type for table "room_type"
+"""
+input room_type_on_conflict {
+  constraint: room_type_constraint!
+  update_columns: [room_type_update_column!]! = []
+  where: room_type_bool_exp
+}
+
+"""Ordering options when selecting data from "room_type"."""
+input room_type_order_by {
+  description: order_by
+  rooms_aggregate: rooms_aggregate_order_by
+  type: order_by
+}
+
+"""primary key columns input for table: room_type"""
+input room_type_pk_columns_input {
+  type: String!
+}
+
+"""
+select columns of table "room_type"
+"""
+enum room_type_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  type
+}
+
+"""
+input type for updating data in table "room_type"
+"""
+input room_type_set_input {
+  description: String
+  type: String
+}
+
+"""
+update columns of table "room_type"
+"""
+enum room_type_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  type
+}
+
+"""
+columns and relationships of "room_visibility"
+"""
+type room_visibility {
+  description: String
+
+  """
+  fetch data from the table: "rooms"
+  """
+  rooms(
+    """distinct select on columns"""
+    distinct_on: [rooms_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rooms_order_by!]
+
+    """filter the rows returned"""
+    where: rooms_bool_exp
+  ): [rooms!]!
+
+  """An aggregate relationship"""
+  rooms_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rooms_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rooms_order_by!]
+
+    """filter the rows returned"""
+    where: rooms_bool_exp
+  ): rooms_aggregate!
+  visibility: String!
+}
+
+"""
+aggregated selection of "room_visibility"
+"""
+type room_visibility_aggregate {
+  aggregate: room_visibility_aggregate_fields
+  nodes: [room_visibility!]!
+}
+
+"""
+aggregate fields of "room_visibility"
+"""
+type room_visibility_aggregate_fields {
+  count(columns: [room_visibility_select_column!], distinct: Boolean): Int!
+  max: room_visibility_max_fields
+  min: room_visibility_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "room_visibility". All fields are combined with a logical 'AND'.
+"""
+input room_visibility_bool_exp {
+  _and: [room_visibility_bool_exp!]
+  _not: room_visibility_bool_exp
+  _or: [room_visibility_bool_exp!]
+  description: String_comparison_exp
+  rooms: rooms_bool_exp
+  visibility: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "room_visibility"
+"""
+enum room_visibility_constraint {
+  """unique or primary key constraint"""
+  room_visibility_pkey
+
+  """unique or primary key constraint"""
+  room_visibility_visibility_key
+}
+
+"""
+input type for inserting data into table "room_visibility"
+"""
+input room_visibility_insert_input {
+  description: String
+  rooms: rooms_arr_rel_insert_input
+  visibility: String
+}
+
+"""aggregate max on columns"""
+type room_visibility_max_fields {
+  description: String
+  visibility: String
+}
+
+"""aggregate min on columns"""
+type room_visibility_min_fields {
+  description: String
+  visibility: String
+}
+
+"""
+response of any mutation on the table "room_visibility"
+"""
+type room_visibility_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [room_visibility!]!
+}
+
+"""
+input type for inserting object relation for remote table "room_visibility"
+"""
+input room_visibility_obj_rel_insert_input {
+  data: room_visibility_insert_input!
+
+  """on conflict condition"""
+  on_conflict: room_visibility_on_conflict
+}
+
+"""
+on conflict condition type for table "room_visibility"
+"""
+input room_visibility_on_conflict {
+  constraint: room_visibility_constraint!
+  update_columns: [room_visibility_update_column!]! = []
+  where: room_visibility_bool_exp
+}
+
+"""Ordering options when selecting data from "room_visibility"."""
+input room_visibility_order_by {
+  description: order_by
+  rooms_aggregate: rooms_aggregate_order_by
+  visibility: order_by
+}
+
+"""primary key columns input for table: room_visibility"""
+input room_visibility_pk_columns_input {
+  visibility: String!
+}
+
+"""
+select columns of table "room_visibility"
+"""
+enum room_visibility_select_column {
+  """column name"""
+  description
+
+  """column name"""
+  visibility
+}
+
+"""
+input type for updating data in table "room_visibility"
+"""
+input room_visibility_set_input {
+  description: String
+  visibility: String
+}
+
+"""
+update columns of table "room_visibility"
+"""
+enum room_visibility_update_column {
+  """column name"""
+  description
+
+  """column name"""
+  visibility
+}
+
+"""
+columns and relationships of "rooms"
+"""
+type rooms {
+  access_code: String!
+  created_at: timestamptz!
+  creator_customer_id: uuid!
+  creator_participant_id: Int!
+  direct_key: String!
+  id: Int!
+
+  """An array relationship"""
+  messages(
+    """distinct select on columns"""
+    distinct_on: [messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [messages_order_by!]
+
+    """filter the rows returned"""
+    where: messages_bool_exp
+  ): [messages!]!
+
+  """An aggregate relationship"""
+  messages_aggregate(
+    """distinct select on columns"""
+    distinct_on: [messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [messages_order_by!]
+
+    """filter the rows returned"""
+    where: messages_bool_exp
+  ): messages_aggregate!
+  name: String!
+
+  """An array relationship"""
+  participant_rooms(
+    """distinct select on columns"""
+    distinct_on: [participant_room_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_room_order_by!]
+
+    """filter the rows returned"""
+    where: participant_room_bool_exp
+  ): [participant_room!]!
+
+  """An aggregate relationship"""
+  participant_rooms_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participant_room_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_room_order_by!]
+
+    """filter the rows returned"""
+    where: participant_room_bool_exp
+  ): participant_room_aggregate!
+
+  """An object relationship"""
+  room_status: room_status!
+
+  """An object relationship"""
+  room_type: room_type!
+
+  """An object relationship"""
+  room_visibility: room_visibility!
+  status: String!
+  type: String!
+  updated_at: timestamptz!
+  visibility: String!
+}
+
+"""
+aggregated selection of "rooms"
+"""
+type rooms_aggregate {
+  aggregate: rooms_aggregate_fields
+  nodes: [rooms!]!
+}
+
+"""
+aggregate fields of "rooms"
+"""
+type rooms_aggregate_fields {
+  avg: rooms_avg_fields
+  count(columns: [rooms_select_column!], distinct: Boolean): Int!
+  max: rooms_max_fields
+  min: rooms_min_fields
+  stddev: rooms_stddev_fields
+  stddev_pop: rooms_stddev_pop_fields
+  stddev_samp: rooms_stddev_samp_fields
+  sum: rooms_sum_fields
+  var_pop: rooms_var_pop_fields
+  var_samp: rooms_var_samp_fields
+  variance: rooms_variance_fields
+}
+
+"""
+order by aggregate values of table "rooms"
+"""
+input rooms_aggregate_order_by {
+  avg: rooms_avg_order_by
+  count: order_by
+  max: rooms_max_order_by
+  min: rooms_min_order_by
+  stddev: rooms_stddev_order_by
+  stddev_pop: rooms_stddev_pop_order_by
+  stddev_samp: rooms_stddev_samp_order_by
+  sum: rooms_sum_order_by
+  var_pop: rooms_var_pop_order_by
+  var_samp: rooms_var_samp_order_by
+  variance: rooms_variance_order_by
+}
+
+"""
+input type for inserting array relation for remote table "rooms"
+"""
+input rooms_arr_rel_insert_input {
+  data: [rooms_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: rooms_on_conflict
+}
+
+"""aggregate avg on columns"""
+type rooms_avg_fields {
+  creator_participant_id: Float
+  id: Float
+}
+
+"""
+order by avg() on columns of table "rooms"
+"""
+input rooms_avg_order_by {
+  creator_participant_id: order_by
+  id: order_by
+}
+
+"""
+Boolean expression to filter rows from the table "rooms". All fields are combined with a logical 'AND'.
+"""
+input rooms_bool_exp {
+  _and: [rooms_bool_exp!]
+  _not: rooms_bool_exp
+  _or: [rooms_bool_exp!]
+  access_code: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  creator_customer_id: uuid_comparison_exp
+  creator_participant_id: Int_comparison_exp
+  direct_key: String_comparison_exp
+  id: Int_comparison_exp
+  messages: messages_bool_exp
+  name: String_comparison_exp
+  participant_rooms: participant_room_bool_exp
+  room_status: room_status_bool_exp
+  room_type: room_type_bool_exp
+  room_visibility: room_visibility_bool_exp
+  status: String_comparison_exp
+  type: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+  visibility: String_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "rooms"
+"""
+enum rooms_constraint {
+  """unique or primary key constraint"""
+  rooms_direct_key_key
+
+  """unique or primary key constraint"""
+  rooms_pkey
+}
+
+"""
+input type for incrementing numeric columns in table "rooms"
+"""
+input rooms_inc_input {
+  creator_participant_id: Int
+  id: Int
+}
+
+"""
+input type for inserting data into table "rooms"
+"""
+input rooms_insert_input {
+  access_code: String
+  created_at: timestamptz
+  creator_customer_id: uuid
+  creator_participant_id: Int
+  direct_key: String
+  id: Int
+  messages: messages_arr_rel_insert_input
+  name: String
+  participant_rooms: participant_room_arr_rel_insert_input
+  room_status: room_status_obj_rel_insert_input
+  room_type: room_type_obj_rel_insert_input
+  room_visibility: room_visibility_obj_rel_insert_input
+  status: String
+  type: String
+  updated_at: timestamptz
+  visibility: String
+}
+
+"""aggregate max on columns"""
+type rooms_max_fields {
+  access_code: String
+  created_at: timestamptz
+  creator_customer_id: uuid
+  creator_participant_id: Int
+  direct_key: String
+  id: Int
+  name: String
+  status: String
+  type: String
+  updated_at: timestamptz
+  visibility: String
+}
+
+"""
+order by max() on columns of table "rooms"
+"""
+input rooms_max_order_by {
+  access_code: order_by
+  created_at: order_by
+  creator_customer_id: order_by
+  creator_participant_id: order_by
+  direct_key: order_by
+  id: order_by
+  name: order_by
+  status: order_by
+  type: order_by
+  updated_at: order_by
+  visibility: order_by
+}
+
+"""aggregate min on columns"""
+type rooms_min_fields {
+  access_code: String
+  created_at: timestamptz
+  creator_customer_id: uuid
+  creator_participant_id: Int
+  direct_key: String
+  id: Int
+  name: String
+  status: String
+  type: String
+  updated_at: timestamptz
+  visibility: String
+}
+
+"""
+order by min() on columns of table "rooms"
+"""
+input rooms_min_order_by {
+  access_code: order_by
+  created_at: order_by
+  creator_customer_id: order_by
+  creator_participant_id: order_by
+  direct_key: order_by
+  id: order_by
+  name: order_by
+  status: order_by
+  type: order_by
+  updated_at: order_by
+  visibility: order_by
+}
+
+"""
+response of any mutation on the table "rooms"
+"""
+type rooms_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [rooms!]!
+}
+
+"""
+input type for inserting object relation for remote table "rooms"
+"""
+input rooms_obj_rel_insert_input {
+  data: rooms_insert_input!
+
+  """on conflict condition"""
+  on_conflict: rooms_on_conflict
+}
+
+"""
+on conflict condition type for table "rooms"
+"""
+input rooms_on_conflict {
+  constraint: rooms_constraint!
+  update_columns: [rooms_update_column!]! = []
+  where: rooms_bool_exp
+}
+
+"""Ordering options when selecting data from "rooms"."""
+input rooms_order_by {
+  access_code: order_by
+  created_at: order_by
+  creator_customer_id: order_by
+  creator_participant_id: order_by
+  direct_key: order_by
+  id: order_by
+  messages_aggregate: messages_aggregate_order_by
+  name: order_by
+  participant_rooms_aggregate: participant_room_aggregate_order_by
+  room_status: room_status_order_by
+  room_type: room_type_order_by
+  room_visibility: room_visibility_order_by
+  status: order_by
+  type: order_by
+  updated_at: order_by
+  visibility: order_by
+}
+
+"""primary key columns input for table: rooms"""
+input rooms_pk_columns_input {
+  id: Int!
+}
+
+"""
+select columns of table "rooms"
+"""
+enum rooms_select_column {
+  """column name"""
+  access_code
+
+  """column name"""
+  created_at
+
+  """column name"""
+  creator_customer_id
+
+  """column name"""
+  creator_participant_id
+
+  """column name"""
+  direct_key
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  status
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  visibility
+}
+
+"""
+input type for updating data in table "rooms"
+"""
+input rooms_set_input {
+  access_code: String
+  created_at: timestamptz
+  creator_customer_id: uuid
+  creator_participant_id: Int
+  direct_key: String
+  id: Int
+  name: String
+  status: String
+  type: String
+  updated_at: timestamptz
+  visibility: String
+}
+
+"""aggregate stddev on columns"""
+type rooms_stddev_fields {
+  creator_participant_id: Float
+  id: Float
+}
+
+"""
+order by stddev() on columns of table "rooms"
+"""
+input rooms_stddev_order_by {
+  creator_participant_id: order_by
+  id: order_by
+}
+
+"""aggregate stddev_pop on columns"""
+type rooms_stddev_pop_fields {
+  creator_participant_id: Float
+  id: Float
+}
+
+"""
+order by stddev_pop() on columns of table "rooms"
+"""
+input rooms_stddev_pop_order_by {
+  creator_participant_id: order_by
+  id: order_by
+}
+
+"""aggregate stddev_samp on columns"""
+type rooms_stddev_samp_fields {
+  creator_participant_id: Float
+  id: Float
+}
+
+"""
+order by stddev_samp() on columns of table "rooms"
+"""
+input rooms_stddev_samp_order_by {
+  creator_participant_id: order_by
+  id: order_by
+}
+
+"""aggregate sum on columns"""
+type rooms_sum_fields {
+  creator_participant_id: Int
+  id: Int
+}
+
+"""
+order by sum() on columns of table "rooms"
+"""
+input rooms_sum_order_by {
+  creator_participant_id: order_by
+  id: order_by
+}
+
+"""
+update columns of table "rooms"
+"""
+enum rooms_update_column {
+  """column name"""
+  access_code
+
+  """column name"""
+  created_at
+
+  """column name"""
+  creator_customer_id
+
+  """column name"""
+  creator_participant_id
+
+  """column name"""
+  direct_key
+
+  """column name"""
+  id
+
+  """column name"""
+  name
+
+  """column name"""
+  status
+
+  """column name"""
+  type
+
+  """column name"""
+  updated_at
+
+  """column name"""
+  visibility
+}
+
+"""aggregate var_pop on columns"""
+type rooms_var_pop_fields {
+  creator_participant_id: Float
+  id: Float
+}
+
+"""
+order by var_pop() on columns of table "rooms"
+"""
+input rooms_var_pop_order_by {
+  creator_participant_id: order_by
+  id: order_by
+}
+
+"""aggregate var_samp on columns"""
+type rooms_var_samp_fields {
+  creator_participant_id: Float
+  id: Float
+}
+
+"""
+order by var_samp() on columns of table "rooms"
+"""
+input rooms_var_samp_order_by {
+  creator_participant_id: order_by
+  id: order_by
+}
+
+"""aggregate variance on columns"""
+type rooms_variance_fields {
+  creator_participant_id: Float
+  id: Float
+}
+
+"""
+order by variance() on columns of table "rooms"
+"""
+input rooms_variance_order_by {
+  creator_participant_id: order_by
+  id: order_by
+}
+
+type subscription_root {
+  """
+  fetch data from the table: "attachment_extensions"
+  """
+  attachment_extensions(
+    """distinct select on columns"""
+    distinct_on: [attachment_extensions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachment_extensions_order_by!]
+
+    """filter the rows returned"""
+    where: attachment_extensions_bool_exp
+  ): [attachment_extensions!]!
+
+  """
+  fetch aggregated fields from the table: "attachment_extensions"
+  """
+  attachment_extensions_aggregate(
+    """distinct select on columns"""
+    distinct_on: [attachment_extensions_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachment_extensions_order_by!]
+
+    """filter the rows returned"""
+    where: attachment_extensions_bool_exp
+  ): attachment_extensions_aggregate!
+
+  """
+  fetch data from the table: "attachment_extensions" using primary key columns
+  """
+  attachment_extensions_by_pk(name: String!): attachment_extensions
+
+  """An array relationship"""
+  attachments(
+    """distinct select on columns"""
+    distinct_on: [attachments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachments_order_by!]
+
+    """filter the rows returned"""
+    where: attachments_bool_exp
+  ): [attachments!]!
+
+  """An aggregate relationship"""
+  attachments_aggregate(
+    """distinct select on columns"""
+    distinct_on: [attachments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachments_order_by!]
+
+    """filter the rows returned"""
+    where: attachments_bool_exp
+  ): attachments_aggregate!
+
+  """fetch data from the table: "attachments" using primary key columns"""
+  attachments_by_pk(id: uuid!): attachments
+
+  """
+  fetch data from the table: "is_participant_online"
+  """
+  is_participant_online(
+    """distinct select on columns"""
+    distinct_on: [is_participant_online_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [is_participant_online_order_by!]
+
+    """filter the rows returned"""
+    where: is_participant_online_bool_exp
+  ): [is_participant_online!]!
+
+  """
+  fetch aggregated fields from the table: "is_participant_online"
+  """
+  is_participant_online_aggregate(
+    """distinct select on columns"""
+    distinct_on: [is_participant_online_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [is_participant_online_order_by!]
+
+    """filter the rows returned"""
+    where: is_participant_online_bool_exp
+  ): is_participant_online_aggregate!
+
+  """
+  fetch data from the table: "is_participant_online" using primary key columns
+  """
+  is_participant_online_by_pk(is_online: String!): is_participant_online
+
+  """An array relationship"""
+  messages(
+    """distinct select on columns"""
+    distinct_on: [messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [messages_order_by!]
+
+    """filter the rows returned"""
+    where: messages_bool_exp
+  ): [messages!]!
+
+  """An aggregate relationship"""
+  messages_aggregate(
+    """distinct select on columns"""
+    distinct_on: [messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [messages_order_by!]
+
+    """filter the rows returned"""
+    where: messages_bool_exp
+  ): messages_aggregate!
+
+  """fetch data from the table: "messages" using primary key columns"""
+  messages_by_pk(id: Int!): messages
+
+  """
+  fetch data from the table: "participant_room"
+  """
+  participant_room(
+    """distinct select on columns"""
+    distinct_on: [participant_room_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_room_order_by!]
+
+    """filter the rows returned"""
+    where: participant_room_bool_exp
+  ): [participant_room!]!
+
+  """
+  fetch aggregated fields from the table: "participant_room"
+  """
+  participant_room_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participant_room_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_room_order_by!]
+
+    """filter the rows returned"""
+    where: participant_room_bool_exp
+  ): participant_room_aggregate!
+
+  """
+  fetch data from the table: "participant_room" using primary key columns
+  """
+  participant_room_by_pk(id: Int!): participant_room
+
+  """
+  fetch data from the table: "participant_type"
+  """
+  participant_type(
+    """distinct select on columns"""
+    distinct_on: [participant_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_type_order_by!]
+
+    """filter the rows returned"""
+    where: participant_type_bool_exp
+  ): [participant_type!]!
+
+  """
+  fetch aggregated fields from the table: "participant_type"
+  """
+  participant_type_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participant_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participant_type_order_by!]
+
+    """filter the rows returned"""
+    where: participant_type_bool_exp
+  ): participant_type_aggregate!
+
+  """
+  fetch data from the table: "participant_type" using primary key columns
+  """
+  participant_type_by_pk(type: String!): participant_type
+
+  """An array relationship"""
+  participants(
+    """distinct select on columns"""
+    distinct_on: [participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participants_order_by!]
+
+    """filter the rows returned"""
+    where: participants_bool_exp
+  ): [participants!]!
+
+  """An aggregate relationship"""
+  participants_aggregate(
+    """distinct select on columns"""
+    distinct_on: [participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [participants_order_by!]
+
+    """filter the rows returned"""
+    where: participants_bool_exp
+  ): participants_aggregate!
+
+  """fetch data from the table: "participants" using primary key columns"""
+  participants_by_pk(id: Int!): participants
+
+  """
+  fetch data from the table: "room_status"
+  """
+  room_status(
+    """distinct select on columns"""
+    distinct_on: [room_status_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_status_order_by!]
+
+    """filter the rows returned"""
+    where: room_status_bool_exp
+  ): [room_status!]!
+
+  """
+  fetch aggregated fields from the table: "room_status"
+  """
+  room_status_aggregate(
+    """distinct select on columns"""
+    distinct_on: [room_status_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_status_order_by!]
+
+    """filter the rows returned"""
+    where: room_status_bool_exp
+  ): room_status_aggregate!
+
+  """fetch data from the table: "room_status" using primary key columns"""
+  room_status_by_pk(status: String!): room_status
+
+  """
+  fetch data from the table: "room_type"
+  """
+  room_type(
+    """distinct select on columns"""
+    distinct_on: [room_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_type_order_by!]
+
+    """filter the rows returned"""
+    where: room_type_bool_exp
+  ): [room_type!]!
+
+  """
+  fetch aggregated fields from the table: "room_type"
+  """
+  room_type_aggregate(
+    """distinct select on columns"""
+    distinct_on: [room_type_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_type_order_by!]
+
+    """filter the rows returned"""
+    where: room_type_bool_exp
+  ): room_type_aggregate!
+
+  """fetch data from the table: "room_type" using primary key columns"""
+  room_type_by_pk(type: String!): room_type
+
+  """
+  fetch data from the table: "room_visibility"
+  """
+  room_visibility(
+    """distinct select on columns"""
+    distinct_on: [room_visibility_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_visibility_order_by!]
+
+    """filter the rows returned"""
+    where: room_visibility_bool_exp
+  ): [room_visibility!]!
+
+  """
+  fetch aggregated fields from the table: "room_visibility"
+  """
+  room_visibility_aggregate(
+    """distinct select on columns"""
+    distinct_on: [room_visibility_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [room_visibility_order_by!]
+
+    """filter the rows returned"""
+    where: room_visibility_bool_exp
+  ): room_visibility_aggregate!
+
+  """fetch data from the table: "room_visibility" using primary key columns"""
+  room_visibility_by_pk(visibility: String!): room_visibility
+
+  """
+  fetch data from the table: "rooms"
+  """
+  rooms(
+    """distinct select on columns"""
+    distinct_on: [rooms_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rooms_order_by!]
+
+    """filter the rows returned"""
+    where: rooms_bool_exp
+  ): [rooms!]!
+
+  """An aggregate relationship"""
+  rooms_aggregate(
+    """distinct select on columns"""
+    distinct_on: [rooms_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [rooms_order_by!]
+
+    """filter the rows returned"""
+    where: rooms_bool_exp
+  ): rooms_aggregate!
+
+  """fetch data from the table: "rooms" using primary key columns"""
+  rooms_by_pk(id: Int!): rooms
+
+  """An array relationship"""
+  ticket_messages(
+    """distinct select on columns"""
+    distinct_on: [ticket_messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_messages_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_messages_bool_exp
+  ): [ticket_messages!]!
+
+  """An aggregate relationship"""
+  ticket_messages_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ticket_messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_messages_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_messages_bool_exp
+  ): ticket_messages_aggregate!
+
+  """fetch data from the table: "ticket_messages" using primary key columns"""
+  ticket_messages_by_pk(id: uuid!): ticket_messages
+
+  """An array relationship"""
+  ticket_participants(
+    """distinct select on columns"""
+    distinct_on: [ticket_participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_participants_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_participants_bool_exp
+  ): [ticket_participants!]!
+
+  """An aggregate relationship"""
+  ticket_participants_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ticket_participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_participants_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_participants_bool_exp
+  ): ticket_participants_aggregate!
+
+  """
+  fetch data from the table: "ticket_participants" using primary key columns
+  """
+  ticket_participants_by_pk(participant_id: uuid!, ticket_id: uuid!): ticket_participants
+
+  """
+  fetch data from the table: "ticket_states"
+  """
+  ticket_states(
+    """distinct select on columns"""
+    distinct_on: [ticket_states_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_states_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_states_bool_exp
+  ): [ticket_states!]!
+
+  """
+  fetch aggregated fields from the table: "ticket_states"
+  """
+  ticket_states_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ticket_states_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_states_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_states_bool_exp
+  ): ticket_states_aggregate!
+
+  """fetch data from the table: "ticket_states" using primary key columns"""
+  ticket_states_by_pk(name: String!): ticket_states
+
+  """An array relationship"""
+  tickets(
+    """distinct select on columns"""
+    distinct_on: [tickets_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tickets_order_by!]
+
+    """filter the rows returned"""
+    where: tickets_bool_exp
+  ): [tickets!]!
+
+  """An aggregate relationship"""
+  tickets_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tickets_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tickets_order_by!]
+
+    """filter the rows returned"""
+    where: tickets_bool_exp
+  ): tickets_aggregate!
+
+  """fetch data from the table: "tickets" using primary key columns"""
+  tickets_by_pk(id: uuid!): tickets
+
+  """
+  fetch data from the table: "users"
+  """
+  users(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): [users!]!
+
+  """
+  fetch aggregated fields from the table: "users"
+  """
+  users_aggregate(
+    """distinct select on columns"""
+    distinct_on: [users_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [users_order_by!]
+
+    """filter the rows returned"""
+    where: users_bool_exp
+  ): users_aggregate!
+
+  """fetch data from the table: "users" using primary key columns"""
+  users_by_pk(id: uuid!): users
+}
+
+"""
+columns and relationships of "ticket_messages"
+"""
+type ticket_messages {
+  """An array relationship"""
+  attachments(
+    """distinct select on columns"""
+    distinct_on: [attachments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachments_order_by!]
+
+    """filter the rows returned"""
+    where: attachments_bool_exp
+  ): [attachments!]!
+
+  """An aggregate relationship"""
+  attachments_aggregate(
+    """distinct select on columns"""
+    distinct_on: [attachments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachments_order_by!]
+
+    """filter the rows returned"""
+    where: attachments_bool_exp
+  ): attachments_aggregate!
+
+  """An object relationship"""
+  author: ticket_participants
+  author_id: uuid!
+  content: String!
+  created_at: timestamptz!
+  deleted_at: timestamptz
+  id: uuid!
+  seen: Boolean!
+
+  """An object relationship"""
+  ticket: tickets!
+  ticket_id: uuid!
+  updated_at: timestamptz!
+}
+
+"""
+aggregated selection of "ticket_messages"
+"""
+type ticket_messages_aggregate {
+  aggregate: ticket_messages_aggregate_fields
+  nodes: [ticket_messages!]!
+}
+
+"""
+aggregate fields of "ticket_messages"
+"""
+type ticket_messages_aggregate_fields {
+  count(columns: [ticket_messages_select_column!], distinct: Boolean): Int!
+  max: ticket_messages_max_fields
+  min: ticket_messages_min_fields
+}
+
+"""
+order by aggregate values of table "ticket_messages"
+"""
+input ticket_messages_aggregate_order_by {
+  count: order_by
+  max: ticket_messages_max_order_by
+  min: ticket_messages_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "ticket_messages"
+"""
+input ticket_messages_arr_rel_insert_input {
+  data: [ticket_messages_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: ticket_messages_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "ticket_messages". All fields are combined with a logical 'AND'.
+"""
+input ticket_messages_bool_exp {
+  _and: [ticket_messages_bool_exp!]
+  _not: ticket_messages_bool_exp
+  _or: [ticket_messages_bool_exp!]
+  attachments: attachments_bool_exp
+  author: ticket_participants_bool_exp
+  author_id: uuid_comparison_exp
+  content: String_comparison_exp
+  created_at: timestamptz_comparison_exp
+  deleted_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  seen: Boolean_comparison_exp
+  ticket: tickets_bool_exp
+  ticket_id: uuid_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "ticket_messages"
+"""
+enum ticket_messages_constraint {
+  """unique or primary key constraint"""
+  meesages_pkey
+}
+
+"""
+input type for inserting data into table "ticket_messages"
+"""
+input ticket_messages_insert_input {
+  attachments: attachments_arr_rel_insert_input
+  author: ticket_participants_obj_rel_insert_input
+  author_id: uuid
+  content: String
+  created_at: timestamptz
+  deleted_at: timestamptz
+  id: uuid
+  seen: Boolean
+  ticket: tickets_obj_rel_insert_input
+  ticket_id: uuid
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type ticket_messages_max_fields {
+  author_id: uuid
+  content: String
+  created_at: timestamptz
+  deleted_at: timestamptz
+  id: uuid
+  ticket_id: uuid
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "ticket_messages"
+"""
+input ticket_messages_max_order_by {
+  author_id: order_by
+  content: order_by
+  created_at: order_by
+  deleted_at: order_by
+  id: order_by
+  ticket_id: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type ticket_messages_min_fields {
+  author_id: uuid
+  content: String
+  created_at: timestamptz
+  deleted_at: timestamptz
+  id: uuid
+  ticket_id: uuid
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "ticket_messages"
+"""
+input ticket_messages_min_order_by {
+  author_id: order_by
+  content: order_by
+  created_at: order_by
+  deleted_at: order_by
+  id: order_by
+  ticket_id: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "ticket_messages"
+"""
+type ticket_messages_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [ticket_messages!]!
+}
+
+"""
+input type for inserting object relation for remote table "ticket_messages"
+"""
+input ticket_messages_obj_rel_insert_input {
+  data: ticket_messages_insert_input!
+
+  """on conflict condition"""
+  on_conflict: ticket_messages_on_conflict
+}
+
+"""
+on conflict condition type for table "ticket_messages"
+"""
+input ticket_messages_on_conflict {
+  constraint: ticket_messages_constraint!
+  update_columns: [ticket_messages_update_column!]! = []
+  where: ticket_messages_bool_exp
+}
+
+"""Ordering options when selecting data from "ticket_messages"."""
+input ticket_messages_order_by {
+  attachments_aggregate: attachments_aggregate_order_by
+  author: ticket_participants_order_by
+  author_id: order_by
+  content: order_by
+  created_at: order_by
+  deleted_at: order_by
+  id: order_by
+  seen: order_by
+  ticket: tickets_order_by
+  ticket_id: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: ticket_messages"""
+input ticket_messages_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "ticket_messages"
+"""
+enum ticket_messages_select_column {
+  """column name"""
+  author_id
+
+  """column name"""
+  content
+
+  """column name"""
+  created_at
+
+  """column name"""
+  deleted_at
+
+  """column name"""
+  id
+
+  """column name"""
+  seen
+
+  """column name"""
+  ticket_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "ticket_messages"
+"""
+input ticket_messages_set_input {
+  author_id: uuid
+  content: String
+  created_at: timestamptz
+  deleted_at: timestamptz
+  id: uuid
+  seen: Boolean
+  ticket_id: uuid
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "ticket_messages"
+"""
+enum ticket_messages_update_column {
+  """column name"""
+  author_id
+
+  """column name"""
+  content
+
+  """column name"""
+  created_at
+
+  """column name"""
+  deleted_at
+
+  """column name"""
+  id
+
+  """column name"""
+  seen
+
+  """column name"""
+  ticket_id
+
+  """column name"""
+  updated_at
+}
+
+"""
+columns and relationships of "ticket_participants"
+"""
+type ticket_participants {
+  """An array relationship"""
+  messages(
+    """distinct select on columns"""
+    distinct_on: [ticket_messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_messages_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_messages_bool_exp
+  ): [ticket_messages!]!
+
+  """An aggregate relationship"""
+  messages_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ticket_messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_messages_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_messages_bool_exp
+  ): ticket_messages_aggregate!
+  owner: Boolean!
+  participant_id: uuid!
+
+  """An object relationship"""
+  ticket: tickets!
+  ticket_id: uuid!
+}
+
+"""
+aggregated selection of "ticket_participants"
+"""
+type ticket_participants_aggregate {
+  aggregate: ticket_participants_aggregate_fields
+  nodes: [ticket_participants!]!
+}
+
+"""
+aggregate fields of "ticket_participants"
+"""
+type ticket_participants_aggregate_fields {
+  count(columns: [ticket_participants_select_column!], distinct: Boolean): Int!
+  max: ticket_participants_max_fields
+  min: ticket_participants_min_fields
+}
+
+"""
+order by aggregate values of table "ticket_participants"
+"""
+input ticket_participants_aggregate_order_by {
+  count: order_by
+  max: ticket_participants_max_order_by
+  min: ticket_participants_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "ticket_participants"
+"""
+input ticket_participants_arr_rel_insert_input {
+  data: [ticket_participants_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: ticket_participants_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "ticket_participants". All fields are combined with a logical 'AND'.
+"""
+input ticket_participants_bool_exp {
+  _and: [ticket_participants_bool_exp!]
+  _not: ticket_participants_bool_exp
+  _or: [ticket_participants_bool_exp!]
+  messages: ticket_messages_bool_exp
+  owner: Boolean_comparison_exp
+  participant_id: uuid_comparison_exp
+  ticket: tickets_bool_exp
+  ticket_id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "ticket_participants"
+"""
+enum ticket_participants_constraint {
+  """unique or primary key constraint"""
+  ticket_participants_pkey
+}
+
+"""
+input type for inserting data into table "ticket_participants"
+"""
+input ticket_participants_insert_input {
+  messages: ticket_messages_arr_rel_insert_input
+  owner: Boolean
+  participant_id: uuid
+  ticket: tickets_obj_rel_insert_input
+  ticket_id: uuid
+}
+
+"""aggregate max on columns"""
+type ticket_participants_max_fields {
+  participant_id: uuid
+  ticket_id: uuid
+}
+
+"""
+order by max() on columns of table "ticket_participants"
+"""
+input ticket_participants_max_order_by {
+  participant_id: order_by
+  ticket_id: order_by
+}
+
+"""aggregate min on columns"""
+type ticket_participants_min_fields {
+  participant_id: uuid
+  ticket_id: uuid
+}
+
+"""
+order by min() on columns of table "ticket_participants"
+"""
+input ticket_participants_min_order_by {
+  participant_id: order_by
+  ticket_id: order_by
+}
+
+"""
+response of any mutation on the table "ticket_participants"
+"""
+type ticket_participants_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [ticket_participants!]!
+}
+
+"""
+input type for inserting object relation for remote table "ticket_participants"
+"""
+input ticket_participants_obj_rel_insert_input {
+  data: ticket_participants_insert_input!
+
+  """on conflict condition"""
+  on_conflict: ticket_participants_on_conflict
+}
+
+"""
+on conflict condition type for table "ticket_participants"
+"""
+input ticket_participants_on_conflict {
+  constraint: ticket_participants_constraint!
+  update_columns: [ticket_participants_update_column!]! = []
+  where: ticket_participants_bool_exp
+}
+
+"""Ordering options when selecting data from "ticket_participants"."""
+input ticket_participants_order_by {
+  messages_aggregate: ticket_messages_aggregate_order_by
+  owner: order_by
+  participant_id: order_by
+  ticket: tickets_order_by
+  ticket_id: order_by
+}
+
+"""primary key columns input for table: ticket_participants"""
+input ticket_participants_pk_columns_input {
+  participant_id: uuid!
+  ticket_id: uuid!
+}
+
+"""
+select columns of table "ticket_participants"
+"""
+enum ticket_participants_select_column {
+  """column name"""
+  owner
+
+  """column name"""
+  participant_id
+
+  """column name"""
+  ticket_id
+}
+
+"""
+input type for updating data in table "ticket_participants"
+"""
+input ticket_participants_set_input {
+  owner: Boolean
+  participant_id: uuid
+  ticket_id: uuid
+}
+
+"""
+update columns of table "ticket_participants"
+"""
+enum ticket_participants_update_column {
+  """column name"""
+  owner
+
+  """column name"""
+  participant_id
+
+  """column name"""
+  ticket_id
+}
+
+"""
+columns and relationships of "ticket_states"
+"""
+type ticket_states {
+  comment: String
+  name: String!
+
+  """An array relationship"""
+  tickets(
+    """distinct select on columns"""
+    distinct_on: [tickets_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tickets_order_by!]
+
+    """filter the rows returned"""
+    where: tickets_bool_exp
+  ): [tickets!]!
+
+  """An aggregate relationship"""
+  tickets_aggregate(
+    """distinct select on columns"""
+    distinct_on: [tickets_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [tickets_order_by!]
+
+    """filter the rows returned"""
+    where: tickets_bool_exp
+  ): tickets_aggregate!
+}
+
+"""
+aggregated selection of "ticket_states"
+"""
+type ticket_states_aggregate {
+  aggregate: ticket_states_aggregate_fields
+  nodes: [ticket_states!]!
+}
+
+"""
+aggregate fields of "ticket_states"
+"""
+type ticket_states_aggregate_fields {
+  count(columns: [ticket_states_select_column!], distinct: Boolean): Int!
+  max: ticket_states_max_fields
+  min: ticket_states_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "ticket_states". All fields are combined with a logical 'AND'.
+"""
+input ticket_states_bool_exp {
+  _and: [ticket_states_bool_exp!]
+  _not: ticket_states_bool_exp
+  _or: [ticket_states_bool_exp!]
+  comment: String_comparison_exp
+  name: String_comparison_exp
+  tickets: tickets_bool_exp
+}
+
+"""
+unique or primary key constraints on table "ticket_states"
+"""
+enum ticket_states_constraint {
+  """unique or primary key constraint"""
+  ticket_states_pkey
+}
+
+enum ticket_states_enum {
+  ACTIVE
+  REOPENED
+  RESOLVED
+}
+
+"""
+Boolean expression to compare columns of type "ticket_states_enum". All fields are combined with logical 'AND'.
+"""
+input ticket_states_enum_comparison_exp {
+  _eq: ticket_states_enum
+  _in: [ticket_states_enum!]
+  _is_null: Boolean
+  _neq: ticket_states_enum
+  _nin: [ticket_states_enum!]
+}
+
+"""
+input type for inserting data into table "ticket_states"
+"""
+input ticket_states_insert_input {
+  comment: String
+  name: String
+  tickets: tickets_arr_rel_insert_input
+}
+
+"""aggregate max on columns"""
+type ticket_states_max_fields {
+  comment: String
+  name: String
+}
+
+"""aggregate min on columns"""
+type ticket_states_min_fields {
+  comment: String
+  name: String
+}
+
+"""
+response of any mutation on the table "ticket_states"
+"""
+type ticket_states_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [ticket_states!]!
+}
+
+"""
+input type for inserting object relation for remote table "ticket_states"
+"""
+input ticket_states_obj_rel_insert_input {
+  data: ticket_states_insert_input!
+
+  """on conflict condition"""
+  on_conflict: ticket_states_on_conflict
+}
+
+"""
+on conflict condition type for table "ticket_states"
+"""
+input ticket_states_on_conflict {
+  constraint: ticket_states_constraint!
+  update_columns: [ticket_states_update_column!]! = []
+  where: ticket_states_bool_exp
+}
+
+"""Ordering options when selecting data from "ticket_states"."""
+input ticket_states_order_by {
+  comment: order_by
+  name: order_by
+  tickets_aggregate: tickets_aggregate_order_by
+}
+
+"""primary key columns input for table: ticket_states"""
+input ticket_states_pk_columns_input {
+  name: String!
+}
+
+"""
+select columns of table "ticket_states"
+"""
+enum ticket_states_select_column {
+  """column name"""
+  comment
+
+  """column name"""
+  name
+}
+
+"""
+input type for updating data in table "ticket_states"
+"""
+input ticket_states_set_input {
+  comment: String
+  name: String
+}
+
+"""
+update columns of table "ticket_states"
+"""
+enum ticket_states_update_column {
+  """column name"""
+  comment
+
+  """column name"""
+  name
+}
+
+"""
+columns and relationships of "tickets"
+"""
+type tickets {
+  """An array relationship"""
+  attachments(
+    """distinct select on columns"""
+    distinct_on: [attachments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachments_order_by!]
+
+    """filter the rows returned"""
+    where: attachments_bool_exp
+  ): [attachments!]!
+
+  """An aggregate relationship"""
+  attachments_aggregate(
+    """distinct select on columns"""
+    distinct_on: [attachments_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [attachments_order_by!]
+
+    """filter the rows returned"""
+    where: attachments_bool_exp
+  ): attachments_aggregate!
+  created_at: timestamptz!
+  customer_id: uuid!
+  deleted_at: timestamptz
+  id: uuid!
+  state: ticket_states_enum!
+
+  """An array relationship"""
+  ticket_messages(
+    """distinct select on columns"""
+    distinct_on: [ticket_messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_messages_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_messages_bool_exp
+  ): [ticket_messages!]!
+
+  """An aggregate relationship"""
+  ticket_messages_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ticket_messages_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_messages_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_messages_bool_exp
+  ): ticket_messages_aggregate!
+
+  """An array relationship"""
+  ticket_participants(
+    """distinct select on columns"""
+    distinct_on: [ticket_participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_participants_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_participants_bool_exp
+  ): [ticket_participants!]!
+
+  """An aggregate relationship"""
+  ticket_participants_aggregate(
+    """distinct select on columns"""
+    distinct_on: [ticket_participants_select_column!]
+
+    """limit the number of rows returned"""
+    limit: Int
+
+    """skip the first n rows. Use only with order_by"""
+    offset: Int
+
+    """sort the rows by one or more columns"""
+    order_by: [ticket_participants_order_by!]
+
+    """filter the rows returned"""
+    where: ticket_participants_bool_exp
+  ): ticket_participants_aggregate!
+
+  """An object relationship"""
+  ticket_state: ticket_states!
+  title: String!
+  updated_at: timestamptz
+}
+
+"""
+aggregated selection of "tickets"
+"""
+type tickets_aggregate {
+  aggregate: tickets_aggregate_fields
+  nodes: [tickets!]!
+}
+
+"""
+aggregate fields of "tickets"
+"""
+type tickets_aggregate_fields {
+  count(columns: [tickets_select_column!], distinct: Boolean): Int!
+  max: tickets_max_fields
+  min: tickets_min_fields
+}
+
+"""
+order by aggregate values of table "tickets"
+"""
+input tickets_aggregate_order_by {
+  count: order_by
+  max: tickets_max_order_by
+  min: tickets_min_order_by
+}
+
+"""
+input type for inserting array relation for remote table "tickets"
+"""
+input tickets_arr_rel_insert_input {
+  data: [tickets_insert_input!]!
+
+  """on conflict condition"""
+  on_conflict: tickets_on_conflict
+}
+
+"""
+Boolean expression to filter rows from the table "tickets". All fields are combined with a logical 'AND'.
+"""
+input tickets_bool_exp {
+  _and: [tickets_bool_exp!]
+  _not: tickets_bool_exp
+  _or: [tickets_bool_exp!]
+  attachments: attachments_bool_exp
+  created_at: timestamptz_comparison_exp
+  customer_id: uuid_comparison_exp
+  deleted_at: timestamptz_comparison_exp
+  id: uuid_comparison_exp
+  state: ticket_states_enum_comparison_exp
+  ticket_messages: ticket_messages_bool_exp
+  ticket_participants: ticket_participants_bool_exp
+  ticket_state: ticket_states_bool_exp
+  title: String_comparison_exp
+  updated_at: timestamptz_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "tickets"
+"""
+enum tickets_constraint {
+  """unique or primary key constraint"""
+  tickets_pkey
+}
+
+"""
+input type for inserting data into table "tickets"
+"""
+input tickets_insert_input {
+  attachments: attachments_arr_rel_insert_input
+  created_at: timestamptz
+  customer_id: uuid
+  deleted_at: timestamptz
+  id: uuid
+  state: ticket_states_enum
+  ticket_messages: ticket_messages_arr_rel_insert_input
+  ticket_participants: ticket_participants_arr_rel_insert_input
+  ticket_state: ticket_states_obj_rel_insert_input
+  title: String
+  updated_at: timestamptz
+}
+
+"""aggregate max on columns"""
+type tickets_max_fields {
+  created_at: timestamptz
+  customer_id: uuid
+  deleted_at: timestamptz
+  id: uuid
+  title: String
+  updated_at: timestamptz
+}
+
+"""
+order by max() on columns of table "tickets"
+"""
+input tickets_max_order_by {
+  created_at: order_by
+  customer_id: order_by
+  deleted_at: order_by
+  id: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""aggregate min on columns"""
+type tickets_min_fields {
+  created_at: timestamptz
+  customer_id: uuid
+  deleted_at: timestamptz
+  id: uuid
+  title: String
+  updated_at: timestamptz
+}
+
+"""
+order by min() on columns of table "tickets"
+"""
+input tickets_min_order_by {
+  created_at: order_by
+  customer_id: order_by
+  deleted_at: order_by
+  id: order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""
+response of any mutation on the table "tickets"
+"""
+type tickets_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [tickets!]!
+}
+
+"""
+input type for inserting object relation for remote table "tickets"
+"""
+input tickets_obj_rel_insert_input {
+  data: tickets_insert_input!
+
+  """on conflict condition"""
+  on_conflict: tickets_on_conflict
+}
+
+"""
+on conflict condition type for table "tickets"
+"""
+input tickets_on_conflict {
+  constraint: tickets_constraint!
+  update_columns: [tickets_update_column!]! = []
+  where: tickets_bool_exp
+}
+
+"""Ordering options when selecting data from "tickets"."""
+input tickets_order_by {
+  attachments_aggregate: attachments_aggregate_order_by
+  created_at: order_by
+  customer_id: order_by
+  deleted_at: order_by
+  id: order_by
+  state: order_by
+  ticket_messages_aggregate: ticket_messages_aggregate_order_by
+  ticket_participants_aggregate: ticket_participants_aggregate_order_by
+  ticket_state: ticket_states_order_by
+  title: order_by
+  updated_at: order_by
+}
+
+"""primary key columns input for table: tickets"""
+input tickets_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "tickets"
+"""
+enum tickets_select_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  customer_id
+
+  """column name"""
+  deleted_at
+
+  """column name"""
+  id
+
+  """column name"""
+  state
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+"""
+input type for updating data in table "tickets"
+"""
+input tickets_set_input {
+  created_at: timestamptz
+  customer_id: uuid
+  deleted_at: timestamptz
+  id: uuid
+  state: ticket_states_enum
+  title: String
+  updated_at: timestamptz
+}
+
+"""
+update columns of table "tickets"
+"""
+enum tickets_update_column {
+  """column name"""
+  created_at
+
+  """column name"""
+  customer_id
+
+  """column name"""
+  deleted_at
+
+  """column name"""
+  id
+
+  """column name"""
+  state
+
+  """column name"""
+  title
+
+  """column name"""
+  updated_at
+}
+
+scalar time
+
+"""
+Boolean expression to compare columns of type "time". All fields are combined with logical 'AND'.
+"""
+input time_comparison_exp {
+  _eq: time
+  _gt: time
+  _gte: time
+  _in: [time!]
+  _is_null: Boolean
+  _lt: time
+  _lte: time
+  _neq: time
+  _nin: [time!]
+}
+
+scalar timestamptz
+
+"""
+Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'.
+"""
+input timestamptz_comparison_exp {
+  _eq: timestamptz
+  _gt: timestamptz
+  _gte: timestamptz
+  _in: [timestamptz!]
+  _is_null: Boolean
+  _lt: timestamptz
+  _lte: timestamptz
+  _neq: timestamptz
+  _nin: [timestamptz!]
+}
+
+"""
+columns and relationships of "users"
+"""
+type users {
+  display_name: String!
+  id: uuid!
+}
+
+"""
+aggregated selection of "users"
+"""
+type users_aggregate {
+  aggregate: users_aggregate_fields
+  nodes: [users!]!
+}
+
+"""
+aggregate fields of "users"
+"""
+type users_aggregate_fields {
+  count(columns: [users_select_column!], distinct: Boolean): Int!
+  max: users_max_fields
+  min: users_min_fields
+}
+
+"""
+Boolean expression to filter rows from the table "users". All fields are combined with a logical 'AND'.
+"""
+input users_bool_exp {
+  _and: [users_bool_exp!]
+  _not: users_bool_exp
+  _or: [users_bool_exp!]
+  display_name: String_comparison_exp
+  id: uuid_comparison_exp
+}
+
+"""
+unique or primary key constraints on table "users"
+"""
+enum users_constraint {
+  """unique or primary key constraint"""
+  users_pkey
+}
+
+"""
+input type for inserting data into table "users"
+"""
+input users_insert_input {
+  display_name: String
+  id: uuid
+}
+
+"""aggregate max on columns"""
+type users_max_fields {
+  display_name: String
+  id: uuid
+}
+
+"""aggregate min on columns"""
+type users_min_fields {
+  display_name: String
+  id: uuid
+}
+
+"""
+response of any mutation on the table "users"
+"""
+type users_mutation_response {
+  """number of rows affected by the mutation"""
+  affected_rows: Int!
+
+  """data from the rows affected by the mutation"""
+  returning: [users!]!
+}
+
+"""
+on conflict condition type for table "users"
+"""
+input users_on_conflict {
+  constraint: users_constraint!
+  update_columns: [users_update_column!]! = []
+  where: users_bool_exp
+}
+
+"""Ordering options when selecting data from "users"."""
+input users_order_by {
+  display_name: order_by
+  id: order_by
+}
+
+"""primary key columns input for table: users"""
+input users_pk_columns_input {
+  id: uuid!
+}
+
+"""
+select columns of table "users"
+"""
+enum users_select_column {
+  """column name"""
+  display_name
+
+  """column name"""
+  id
+}
+
+"""
+input type for updating data in table "users"
+"""
+input users_set_input {
+  display_name: String
+  id: uuid
+}
+
+"""
+update columns of table "users"
+"""
+enum users_update_column {
+  """column name"""
+  display_name
+
+  """column name"""
+  id
+}
+
+scalar uuid
+
+"""
+Boolean expression to compare columns of type "uuid". All fields are combined with logical 'AND'.
+"""
+input uuid_comparison_exp {
+  _eq: uuid
+  _gt: uuid
+  _gte: uuid
+  _in: [uuid!]
+  _is_null: Boolean
+  _lt: uuid
+  _lte: uuid
+  _neq: uuid
+  _nin: [uuid!]
+}
