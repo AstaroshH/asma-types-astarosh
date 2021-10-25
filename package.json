@@ -8,11 +8,7 @@
   "author": "ie",
   "license": "MIT",
   "scripts": {
-    "build": "yarn genql && tsc && tsc -p .",
-    "genql": "yarn genql_directory && yarn genql_proxy && yarn genql_chat",
-    "genql_directory": "genql --endpoint http://localhost:7001/v1/graphql --esm --output ./src/generated/directory -H \"x-hasura-admin-secret: srvdirectory\"",
-    "genql_proxy": "genql --endpoint http://localhost:7003/v1/graphql --esm --output ./src/generated/proxy -H \"x-hasura-admin-secret: srvproxy\"",
-    "genql_chat": "genql --endpoint http://localhost:7012/v1/graphql --esm --output ./src/generated/chat -H \"x-hasura-admin-secret: srvchat\"",
+    "build": "tsc && tsc -p .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +17,6 @@
   },
   "devDependencies": {
     "@genql/cli": "^2.6.0",
-    "typescript": "^4.2.3"
+    "typescript": "^4.4.4"
   }
 }

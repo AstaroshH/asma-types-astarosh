@@ -1,4 +1,5 @@
-import type { feature_names_enum, roles_enum } from '../generated/directory/schema';
+declare type roles_enum = 'RECIPIENT' | 'SUPER_USER' | 'THERAPIST' | 'USER';
+declare type feature_names_enum = 'anonymousQnr' | 'autoImportableQnr' | 'dashboardTraceability' | 'ordersOverviewOnSelectedRecipientsForQnr' | 'predefinedUserForQnr' | 'rejectableQnr' | 'signByTherapistDocument' | 'test';
 export interface IBaseJwtClaims {
     user_id: string;
     role: roles_enum;
@@ -24,4 +25,5 @@ export interface IService {
 export declare function isRecipientJwtClaims(claims: IBaseJwtClaims): claims is IRecipientJwtClaims;
 export declare function isTherapistJwtClaims(claims: IBaseJwtClaims): claims is ITherapistOrSuperUserJwtClaims;
 export declare function isAdminJwtClaims(claims: IBaseJwtClaims): claims is IAdminJwtClaims;
+export {};
 //# sourceMappingURL=jwtClaims.d.ts.map
