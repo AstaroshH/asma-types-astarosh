@@ -1,6 +1,3 @@
-export * from './enums/shared/enums';
-export * from './enums/advoca/enums';
-export * from './enums/portal/enums';
 export declare enum InitiatorTypes {
     Customer = "customer",
     Patient = "patient",
