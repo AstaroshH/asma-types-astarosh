@@ -75,7 +75,7 @@ export enum QueriesStatus {
 export enum QueriesInitiator {
     PATIENT = 'PATIENT',
     CUSTOMER = 'CUSTOMER',
-    SELF_COMPLETABLE = 'SELF_COMPLETABLE',
+    SELFCOMPLETABLE = 'SELFCOMPLETABLE',
 }
 
 export enum SmsTemplatesCategory {
