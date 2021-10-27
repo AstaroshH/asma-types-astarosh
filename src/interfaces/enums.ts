@@ -47,7 +47,7 @@ export enum ActorTypes {
 export enum ConsentsGroup {
     GENERAL = 'GENERAL',
     QUERY = 'QUERY',
-    COMMNICATION = 'COMMUNICATION',
+    COMMUNICATION = 'COMMUNICATION',
 }
 
 export enum ConsentsType {
